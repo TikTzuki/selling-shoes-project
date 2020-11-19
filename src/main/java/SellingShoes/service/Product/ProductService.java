@@ -3,10 +3,7 @@ package SellingShoes.service.Product;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.lazada.lazop.api.LazopClient;
-import com.lazada.lazop.api.LazopRequest;
-import com.lazada.lazop.api.LazopResponse;
-
+import com.lazada.lazop.api.*;
 @Service
 public class ProductService {
 	@Value("${laz.url}")
