@@ -1,4 +1,4 @@
-package SellingShoes.model.Product;
+package SellingShoes.controller.Product;
 
 import org.springframework.web.multipart.MultipartFile;
 

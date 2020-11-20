@@ -28,7 +28,6 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import SellingShoes.com.storage.StorageService;
-import SellingShoes.model.Product.ProductForm;
 import SellingShoes.service.Product.ProductService;
 
 @Controller
@@ -68,8 +67,36 @@ public class ProductController {
 		return new ResponseEntity<String>(responseJson,HttpStatus.OK);
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, value="/create")
-	public String listUploadedFiles(Model model) throws IOException {
+	//Create Product
+	@RequestMapping(method = RequestMethod.POST, value="/create", consumes = "application/json", produces = "application/json")
+	public ResponseEntity<String> productCreate(
+			@RequestBody ProductForm productForm
+			){
+			
+			System.out.println("--------------------");
+			System.out.println(productForm);
+			System.out.println("--------------------");
+
+		return new ResponseEntity<String>(productForm.toString(), HttpStatus.OK);
+	}
+	
+	//UploadImage
+	@RequestMapping(method = RequestMethod.POST, value="/images/upload")
+	public ResponseEntity<String> imagesUpload(
+			@RequestParam(name="file", required=false) MultipartFile[] files,
+			RedirectAttributes redirectAttributes){
+			
+			for(MultipartFile file : files) {
+				storageService.store(file);
+				redirectAttributes.addFlashAttribute("message", "You successfully uploaded " + file.getOriginalFilename() + "!");
+			}
+		
+		return new ResponseEntity<String>("{ [{\"image\": \"link of image\"},{\"image\": \"link of image\"}]}", HttpStatus.OK);
+	}
+	
+	//Test form
+	@RequestMapping(method = RequestMethod.GET, value="/images/upload")
+	public String listUploadedFiless(Model model) throws IOException {
 
 		model.addAttribute("files", storageService.loadAll().map(
 				path -> MvcUriComponentsBuilder.fromMethodName(ProductController.class,
@@ -86,37 +113,4 @@ public class ProductController {
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
 				"attachment; filename=\"" + file.getFilename() + "\"").body(file);
 	}
-	
-	@RequestMapping(method = RequestMethod.POST, value="/create", consumes = "application/json", produces = "application/json")
-	public ResponseEntity<String> productCreate(
-			//@RequestHeader(required = false) String header,
-			//@RequestBody(required = false) ProductForm productForm,
-			//@RequestParam(name="productName", required=false) String productName,
-			//@RequestParam(name="price", required=false) String price,
-			//@RequestParam(name="file", required=false) MultipartFile file,
-			//RedirectAttributes redirectAttributes
-			@RequestBody ProductForm productForm
-			){
-			
-			System.out.println("--------------------");
-			//System.out.println(productName);
-			//System.out.println( price);
-			//System.out.println(file);
-			System.out.println(productForm);
-			System.out.println("--------------------");
-			
-			//storageService.store(file);
-			
-			
-		//redirectAttributes.addFlashAttribute("message", "You successfully uploaded " + file.getOriginalFilename() + "!");
-		return new ResponseEntity<String>(productForm.toString(), HttpStatus.OK);
-	}
-	
-	//UploadImage
-	@RequestMapping(method = RequestMethod.POST, value="/image/upload")
-	public ResponseEntity<String> imageUpload(){
-		
-		return new ResponseEntity<String>("responseJson", HttpStatus.OK);
-	}
-	
 }

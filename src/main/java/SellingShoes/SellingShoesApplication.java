@@ -16,6 +16,7 @@ public class SellingShoesApplication {
 	public static void main(String[] args) {
 		ApplicationContext context = SpringApplication.run(SellingShoesApplication.class, args);
 	}
+	  
 	@Bean
 	CommandLineRunner init(StorageService storageService) {
 		return (args) -> {
