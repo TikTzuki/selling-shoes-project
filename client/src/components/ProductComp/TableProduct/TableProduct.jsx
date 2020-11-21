@@ -26,11 +26,12 @@ import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import customizeSort from '../../../ultils/sort';
 import EnhancedTableHead from './EnhancedTableHead';
 import EnhancedTableToolbar from './EnhancedTableToolbar';
-import api from '../../../ultils/api';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../../../actions/product';
 import PopverButton from '../../PopoverButton/PopverButton';
 import {sha256} from 'js-sha256';
+import Axios from 'axios';
+import { axiosJsonServer } from '../../../ultils/api';
 
 function createData(name, sellerSku, createDate, price, specialPrice, availableQuantity, status, actions) {
 	return {
@@ -206,7 +207,7 @@ function TableProduct(props) {
 	let products = [];
 	useEffect(() => {
 		const getUser = async ()=>{
-			await api.get('user?id=1')
+			await axiosJsonServer.get('user?id=1')
 			.then(res=>{
 				let user = res.data;
 				console.log(user);
@@ -215,7 +216,7 @@ function TableProduct(props) {
 		getUser();
 
 		const getAllProducts = async () => {
-			await api.get(`http://localhost:3001/products?${searchProduct.statement}`)
+			await Axios.get(`http://localhost:3001/products?${searchProduct.statement}`)
 				.then(res => {
 					console.log(searchProduct.statement);
 					console.log(res.data);

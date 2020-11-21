@@ -72,7 +72,6 @@ public class ProductController {
 	public ResponseEntity<String> productCreate(
 			@RequestBody ProductForm productForm
 			){
-			
 			System.out.println("--------------------");
 			System.out.println(productForm);
 			System.out.println("--------------------");

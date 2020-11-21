@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { lighten, makeStyles } from '@material-ui/core/styles';
@@ -26,173 +26,22 @@ import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import customizeSort from '../../../ultils/sort';
 import EnhancedTableToolbar from './EnhancedTableToolbar';
 import EnhancedTableHead from './EnhancedTableHead';
+import { useSelector } from 'react-redux';
+import { axiosHeroku } from '../../../ultils/api';
+import ExpandRow from './ExpandRow';
 
-function createData(name, calories, fat, carbs, protein, subContents) {
+function createData(order_id, created_at, payment_method, price, items_count, status, subContents) {
 	//let subContentArray = [...subContents];
 	return {
-		name,
-		calories,
-		fat,
-		carbs,
-		protein,
+		order_id,
+		created_at,
+		payment_method,
+		price,
+		items_count,
+		status,
 		subContents: subContents
 	};
 }
-const rows = [
-	createData('Cupcake', 305, 3.7, 67, 4.3,
-	[
-		{
-			variation: "Nhóm màu:Màu trắng kem",
-			shop_sku: "419096130_VNAMZ-739790405",
-			sku: "419096130-1578375237751-0",
-			invoice_number: "",
-			order_item_id: 259784013095775,
-			name: "Cát tắm thơm dành cho hamster 1kg",
-			order_id: 259784012995775,
-			status: "pending",
-			item_price: 11800.00,
-			paid_price: 11800.00,
-			product_main_image: "https://vn-live.slatic.net/p/dfbd4cb465fea973d3fbd318953949b4.jpg",
-			created_at: "2020-10-26 19:47:59 +0700",
-			updated_at: "2020-10-26 19:48:01 +0700",
-			shipping_fee_original: 4233.00,
-			shipping_fee_discount_platform: 4233.00
-		},
-		{
-			variation: "Nhóm màu:Màu trắng kem",
-			shop_sku: "419096130_VNAMZ-739790405",
-      sku: "419096130-1578375237751-0",
-      invoice_number: "",
-			order_item_id: 259784013195775,
-			name: "Cát tắm thơm dành cho hamster 1kg",
-      shop_id: "TRẦN PHAN THANH LONG",
-      order_id: 259784012995775,
-			status: "pending",
-			item_price: 11800.00,
-      paid_price: 11800.00,
-      product_main_image: "https://vn-live.slatic.net/p/dfbd4cb465fea973d3fbd318953949b4.jpg",
-      created_at: "2020-10-26 19:47:59 +0700",
-      updated_at: "2020-10-26 19:48:01 +0700",
-			shipping_fee_original: 4233.00,
-			shipping_fee_discount_platform: 4233.00
-		}
-	]
-	),
-	createData('Donut', 452, 25.0, 51, 4.9,
-	[
-		{
-			variation: "Nhóm màu:Màu trắng kem",
-			shop_sku: "419096130_VNAMZ-739790405",
-			sku: "419096130-1578375237751-0",
-			invoice_number: "",
-			order_item_id: 259784013095775,
-			name: "Cát tắm thơm dành cho hamster 1kg",
-			order_id: 259784012995775,
-			status: "pending",
-			item_price: 11800.00,
-			paid_price: 11800.00,
-			product_main_image: "https://vn-live.slatic.net/p/dfbd4cb465fea973d3fbd318953949b4.jpg",
-			created_at: "2020-10-26 19:47:59 +0700",
-			updated_at: "2020-10-26 19:48:01 +0700",
-			shipping_fee_original: 4233.00,
-			shipping_fee_discount_platform: 4233.00
-		},
-		{
-			variation: "Nhóm màu:Màu trắng kem",
-			shop_sku: "419096130_VNAMZ-739790405",
-      sku: "419096130-1578375237751-0",
-      invoice_number: "",
-			order_item_id: 259784013195775,
-			name: "Cát tắm thơm dành cho hamster 1kg",
-      shop_id: "TRẦN PHAN THANH LONG",
-      order_id: 259784012995775,
-			status: "pending",
-			item_price: 11800.00,
-      paid_price: 11800.00,
-      product_main_image: "https://vn-live.slatic.net/p/dfbd4cb465fea973d3fbd318953949b4.jpg",
-      created_at: "2020-10-26 19:47:59 +0700",
-      updated_at: "2020-10-26 19:48:01 +0700",
-			shipping_fee_original: 4233.00,
-			shipping_fee_discount_platform: 4233.00
-		}
-	]),
-	createData('Eclair', 262, 16.0, 24, 6.0,
-	[
-		{
-			variation: "Nhóm màu:Màu trắng kem",
-			shop_sku: "419096130_VNAMZ-739790405",
-			sku: "419096130-1578375237751-0",
-			invoice_number: "",
-			order_item_id: 259784013095775,
-			name: "Cát tắm thơm dành cho hamster 1kg",
-			order_id: 259784012995775,
-			status: "pending",
-			item_price: 11800.00,
-			paid_price: 11800.00,
-			product_main_image: "https://vn-live.slatic.net/p/dfbd4cb465fea973d3fbd318953949b4.jpg",
-			created_at: "2020-10-26 19:47:59 +0700",
-			updated_at: "2020-10-26 19:48:01 +0700",
-			shipping_fee_original: 4233.00,
-			shipping_fee_discount_platform: 4233.00
-		},
-		{
-			variation: "Nhóm màu:Màu trắng kem",
-			shop_sku: "419096130_VNAMZ-739790405",
-      sku: "419096130-1578375237751-0",
-      invoice_number: "",
-			order_item_id: 259784013195775,
-			name: "Cát tắm thơm dành cho hamster 1kg",
-      shop_id: "TRẦN PHAN THANH LONG",
-      order_id: 259784012995775,
-			status: "pending",
-			item_price: 11800.00,
-      paid_price: 11800.00,
-      product_main_image: "https://vn-live.slatic.net/p/dfbd4cb465fea973d3fbd318953949b4.jpg",
-      created_at: "2020-10-26 19:47:59 +0700",
-      updated_at: "2020-10-26 19:48:01 +0700",
-			shipping_fee_original: 4233.00,
-			shipping_fee_discount_platform: 4233.00
-		}
-	]),
-	createData('Frozen yoghurt', 159, 6.0, 24, 4.0,
-	[
-		{
-			variation: "Nhóm màu:Màu trắng kem",
-			shop_sku: "419096130_VNAMZ-739790405",
-			sku: "419096130-1578375237751-0",
-			invoice_number: "",
-			order_item_id: 259784013095775,
-			name: "Cát tắm thơm dành cho hamster 1kg",
-			order_id: 259784012995775,
-			status: "pending",
-			item_price: 11800.00,
-			paid_price: 11800.00,
-			product_main_image: "https://vn-live.slatic.net/p/dfbd4cb465fea973d3fbd318953949b4.jpg",
-			created_at: "2020-10-26 19:47:59 +0700",
-			updated_at: "2020-10-26 19:48:01 +0700",
-			shipping_fee_original: 4233.00,
-			shipping_fee_discount_platform: 4233.00
-		},
-		{
-			variation: "Nhóm màu:Màu trắng kem",
-			shop_sku: "419096130_VNAMZ-739790405",
-      sku: "419096130-1578375237751-0",
-      invoice_number: "",
-			order_item_id: 259784013195775,
-			name: "Cát tắm thơm dành cho hamster 1kg",
-      shop_id: "TRẦN PHAN THANH LONG",
-      order_id: 259784012995775,
-			status: "pending",
-			item_price: 11800.00,
-      paid_price: 11800.00,
-      product_main_image: "https://vn-live.slatic.net/p/dfbd4cb465fea973d3fbd318953949b4.jpg",
-      created_at: "2020-10-26 19:47:59 +0700",
-      updated_at: "2020-10-26 19:48:01 +0700",
-			shipping_fee_original: 4233.00,
-			shipping_fee_discount_platform: 4233.00
-		}
-	])
-];
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -218,16 +67,27 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const TableLazOrder = () => {
+const TableLazOrder = (props) => {
 	const classes = useStyles();
 	const [order, setOrder] = React.useState('asc');
-	const [orderBy, setOrderBy] = React.useState('calories');
+	const [orderBy, setOrderBy] = React.useState('');
 	const [selected, setSelected] = React.useState([]);
 	const [page, setPage] = React.useState(0);
 	const [dense, setDense] = React.useState(false);
 	const [rowsPerPage, setRowsPerPage] = React.useState(5);
 	const [expandedRow, setExpandedRow] = React.useState([]);
-
+	const [rows, setRows] = useState([]);
+	const searchLazOrder = useSelector(state => state.searchLazOrder);
+	const {status} = props;
+	const fectchOrders = async ()=>{
+		await axiosHeroku.get(`/laz-orders/get?${searchLazOrder.statement}&status=${status}`).then(res=>{
+			console.log(searchLazOrder.statement);
+			let orders = res.data.data.orders;
+			console.log(" mounted table laz order  ");
+			console.log(searchLazOrder);
+			setRows(orders);
+		})
+	}
 	const handleRequestSort = (event, property) => {
 		const isAsc = (orderBy === property && order === 'asc');
 		setOrder(isAsc ? 'desc' : 'asc');
@@ -294,6 +154,12 @@ const TableLazOrder = () => {
 
 	const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
+	useEffect(() => {
+		fectchOrders();
+	}, [])
+	useEffect(() => {
+		fectchOrders();
+	}, [searchLazOrder])
 	return (
 		<div className={classes.root}>
 			<Paper className={classes.paper}>
@@ -318,7 +184,7 @@ const TableLazOrder = () => {
 							{customizeSort.stableSort(rows, customizeSort.getComparator(order, orderBy))
 								.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 								.map((row, index) => {
-									const isItemSelected = isSelected(row.name);
+									const isItemSelected = isSelected(row.order_id);
 									const labelId = `enhanced-table-checkbox-${index}`;
 
 									return (
@@ -329,30 +195,34 @@ const TableLazOrder = () => {
 												role="checkbox"
 												aria-checked={isItemSelected}
 												tabIndex={-1}
-												key={row.name}
+												key={row.order_id}
 												selected={isItemSelected}
 											>
 												<TableCell padding="checkbox">
 													<Checkbox
 														checked={isItemSelected}
 														inputProps={{ 'aria-labelledby': labelId }}
-														onClick={(event) => handleCheck(event, row.name)}
+														onClick={(event) => handleCheck(event, row.order_id)}
 													/>
 												</TableCell>
 												<TableCell>
-													<IconButton aria-label="expand row" onClick={(event) => handleExpand(event, row.name)}>
-														{expandedRow.includes(row.name) ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+													<IconButton aria-label="expand row" onClick={(event) => handleExpand(event, row.order_id)}>
+														{expandedRow.includes(row.order_id) ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
 													</IconButton>
 												</TableCell>
 												<TableCell component="th" id={labelId} scope="row" padding="none">
-													{row.name}
+													{row.order_id}
 												</TableCell>
-												<TableCell align="right">{row.calories}</TableCell>
-												<TableCell align="right">{row.fat}</TableCell>
-												<TableCell align="right">{row.carbs}</TableCell>
-												<TableCell align="right">{row.protein}</TableCell>
+												<TableCell align="right">{row.created_at}</TableCell>
+												<TableCell align="right">{row.payment_method}</TableCell>
+												<TableCell align="right">{row.price}</TableCell>
+												<TableCell align="right">{row.items_count}</TableCell>
+												<TableCell align="right">{row.statuses[0]}</TableCell>
+												<TableCell align="right">Sẵn sàng giao hàng/Huy</TableCell>
 											</TableRow>
 											{/* Table expanded */}
+											<ExpandRow open={expandedRow.includes(row.order_id)} order_id={row.order_id}/>
+											{/*
 											<TableRow>
 												<TableCell style={{ padding: 0 }} colSpan={6}>
 													<Collapse in={expandedRow.includes(row.name)}>
@@ -382,7 +252,7 @@ const TableLazOrder = () => {
 														</Box>
 													</Collapse>
 												</TableCell>
-											</TableRow>
+											</TableRow> */}
 										</>
 									);
 								})}

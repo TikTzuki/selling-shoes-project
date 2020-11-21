@@ -7,11 +7,12 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 /* load data Head */
 const headCells = [
-	{ id: 'name', numeric: false, disablePadding: true, label: 'Dessert (100g serving)' },
-	{ id: 'calories', numeric: true, disablePadding: false, label: 'Calories' },
-	{ id: 'fat', numeric: true, disablePadding: false, label: 'Fat (g)' },
-	{ id: 'carbs', numeric: true, disablePadding: false, label: 'Carbs (g)' },
-	{ id: 'protein', numeric: true, disablePadding: false, label: 'Protein (g)' },
+	{ id: 'order_id', numeric: false, disablePadding: true, label: 'Mã đơn hàng' },
+	{ id: 'created_at', numeric: true, disablePadding: false, label: 'Ngày đặt' },
+	{ id: 'payment_method', numeric: true, disablePadding: false, label: 'Phương thức thanh toán' },
+	{ id: 'price', numeric: true, disablePadding: false, label: 'Giá bán' },
+	{ id: 'items_count', numeric: true, disablePadding: false, label: '#' },
+	{ id: 'status', numeric: true, disablePadding: false, label: 'Trạng thái' }
 ];
 function EnhancedTableHead(props) {
 	const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
@@ -54,6 +55,9 @@ function EnhancedTableHead(props) {
 						</TableSortLabel>
 					</TableCell>
 				))}
+				<TableCell align="left">
+					Hành động
+				</TableCell>
 			</TableRow>
 		</TableHead>
 	);
