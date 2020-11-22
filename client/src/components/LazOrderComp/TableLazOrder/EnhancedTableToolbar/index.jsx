@@ -130,9 +130,7 @@ const EnhancedTableToolbar = (props) => {
 							</ListItem>
 						</List>
 					</Popover></>
-					) : (<>
-						</>
-						)}
+					) : (<></>)}
 				</Typography>
 			</>
 			) : (
