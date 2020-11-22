@@ -21,6 +21,7 @@ import React from 'react'
 import { compose } from 'recompose'
 import * as Yup from 'yup'
 import axios from 'axios'
+import { axiosJsonServer } from '../../ultils/api';
 
 const styles = (theme) => {
 	return {
@@ -36,22 +37,26 @@ const styles = (theme) => {
 const formikForm = {
 	mapPropsToValues() { // Init form field
 		return {
-			username: 'abc',
+			first_name: '',
+			last_name: '',
+			phone_number: '',
 			email: '',
-			password: '',
-			fileInput: undefined,
-			plan: '',
-			file: undefined,
+			password: ''
 		}
 	},
 	validationSchema: Yup.object().shape({
-		username: Yup.string()
-			.required('Username is required')
-			.min(5, 'Username must have min 5 character')
-			.max(10, 'Username have max 10 chareacters'),
+		first_name: Yup.string()
+			.required('First name is required')
+			.min(1, 'First name must have min 1 character')
+			.max(200, 'First name have max 10 chareacters'),
+		last_name: Yup.string()
+			.required('Last name is required')
+			.min(1, 'Last name must have min 1 character')
+			.max(200, 'Last name have max 10 chareacters'),
 		email: Yup.string()
-			.required('Email is required')
 			.email('Email is invalid'),
+		phone_number: Yup.string()
+			.required('Phone number is required'),
 		password: Yup.string()
 			.required('Password is required')
 			.min(8, 'Password must have min 8 character'),
@@ -60,13 +65,15 @@ const formikForm = {
 function SignUpPage(props) {
 	const { classes, values, handleChange, errors, setFieldValue, multitheme } = props;
 	const handleSubmit = () => {
-		let data = new FormData();
-		console.log(values);
-		data.append("file", values.file);
-		data.append("name", values.username)
-		return axios.post('http://localhost:3001/accounts', data)
+		let data = {
+			first_name: 'tik',
+			last_name: 'tok',
+			phone_number: '098093507894',
+			email: 'hahaha',
+			password: 'hehehehe'
+		}
+		axiosJsonServer.post('seller_account', data)
 		.then(res=>{console.log(res.data)})
-		console.log(values);
 	}
 
 	return (

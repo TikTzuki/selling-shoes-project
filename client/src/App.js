@@ -13,13 +13,14 @@ export default function App (){
   const currentUser = useSelector(state => state.user);
 
   //componentDidMount
-  useEffect(() => {    
+  useEffect(() => {   
+
   }, [])
 
   //componentDidUpdate
   useEffect(() => {
-    //console.log(writers)
-  }, [setThemeName])
+    console.log('App update')
+  }, [currentUser])
 
   return currentUser!==null ? 
   <LoggedRoute multiTheme={setThemeName} />:

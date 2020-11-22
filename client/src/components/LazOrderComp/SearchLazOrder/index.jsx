@@ -80,11 +80,11 @@ const SearchLazOrder = (props) => {
 							/>
 						)}
 					/>
-					<Grid item xs={2} className={classes.searchItem}>
-						<Button variant='outlined' onClick={handleSearch}>
-							Tìm kiếm
-          </Button>
-					</Grid>
+
+					<Button variant='outlined' onClick={handleSearch}>
+						Tìm kiếm
+			          </Button>
+
 				</Form>
 			</Grid>
 		</div>

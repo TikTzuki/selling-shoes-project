@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
 function NavTabs(props) {
   const search = props.search;
   const classes = useStyles();
-  const [value, setValue] = React.useState(1);
+  const [value, setValue] = React.useState(2);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -87,16 +87,16 @@ function NavTabs(props) {
         </Tabs>
       </AppBar>
       <TabPanel value={value} key={1} index={0}>
-        <TableProduct key={1} search={search}/>
+        <TableProduct key={1} filter="all" search={search}/>
       </TabPanel>
       <TabPanel value={value} key={2} index={1}>
-        <TableProduct  key={2} search={search}/>
+        <TableProduct  key={2} filter="live" search={search}/>
       </TabPanel>
       <TabPanel value={value}  key={3} index={2}>
-        <TableProduct  key={3} search={search}/>
+        <TableProduct  key={3} filter="sold-out" search={search}/>
       </TabPanel>
       <TabPanel value={value} key={4} index={3}>
-        <TableProduct  key={4} search={search}/>
+        <TableProduct  key={4} filter="inactive" search={search}/>
       </TabPanel>
     </div>
   );

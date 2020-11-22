@@ -1,133 +1,5 @@
 {
-  "writers": [
-    {
-      "id": "ralph-waldo-emerson",
-      "name": "Ralph Waldo Emerson",
-      "born": "May 25, 1803",
-      "deceased": "April 27, 1882",
-      "description": "American essayist, lecturer, philosopher and poet who led the transcendentalist movement of the mid-19th century. He was seen as a champion of individualism and a prescient critic of the countervailing pressures of society, and he disseminated his thoughts through dozens of published essays and more than 1,500 public lectures across the United States.",
-      "image": "https://media1.shmoop.com/media/images/large/emerson.jpeg"
-    },
-    {
-      "id": "friedrich-nietzsche",
-      "name": "Friedrich Nietzsche",
-      "born": "October 15, 1844",
-      "deceased": "August 25, 1900",
-      "description": "German philosopher, cultural critic, composer, poet, philologist, and Latin and Greek scholar. His thought enjoyed renewed popularity in the 1960s, and his ideas have since had a profound impact on 20th and early-21st century thinkers across philosophy—especially in schools of continental philosophy such as existentialism, postmodernism and post-structuralism—as well as art, literature, psychology, politics, and popular culture.",
-      "image": "https://images-na.ssl-images-amazon.com/images/I/51RsIVm3G7L.jpg"
-    },
-    {
-      "id": "carl-jung",
-      "name": "Carl Jung",
-      "born": "July 26, 1875",
-      "deceased": "June 6, 1961",
-      "description": "Swiss psychiatrist and psychoanalyst who founded analytical psychology. His work has been influential not only in psychiatry but also in anthropology, archaeology, literature, philosophy, and religious studies. He created some of the best known psychological concepts, including synchronicity, archetypal phenomena, the collective unconscious, the psychological complex, and extraversion and introversion.",
-      "image": "http://3.bp.blogspot.com/-CKeCID-ZoqQ/UcA_qek-WpI/AAAAAAAADNo/iwP6cTOVJvY/s1600/Carl-Gustav-Jung.jpg"
-    },
-    {
-      "id": "joseph-campbell",
-      "name": "Joseph Campbell",
-      "born": "March 26, 1904",
-      "deceased": "October 30, 1987",
-      "description": "American mythologist who worked in comparative mythology and comparative religion. His work covers many aspects of the human experience. Since the book's publication, Campbell's theory has been consciously applied by a wide variety of modern writers and artists. His philosophy has been summarized by his own often repeated phrase: \"Follow your bliss.\"",
-      "image": "https://anewdoxology.files.wordpress.com/2017/08/joseph-campbell.jpg?w=300"
-    },
-    {
-      "id": "osho",
-      "name": "Rajneesh (Osho)",
-      "born": "December 11, 1931",
-      "deceased": "January 19, 1990",
-      "description": "Indian spiritual guru, considered as a Godman and leader of the Rajneesh movement. During his lifetime he was viewed as a controversial mystic, guru, and spiritual teacher. He advocated a more open attitude towards human sexuality, earning him the nickname \"sex guru\" in the Indian and later international press, although this attitude became more acceptable with time.",
-      "image": "https://starsunfolded.com/wp-content/uploads/2018/01/Osho-Poona2-1-compressed-2.jpg"
-    }
-  ],
-  "texts": [
-    {
-      "id": "self-reliance",
-      "writerId": "ralph-waldo-emerson",
-      "title": "Self-Reliance",
-      "description": "An essay that contains the most thorough statement of one of Emerson's recurrent themes: the need for each individual to avoid conformity and false consistency, and follow their own instincts and ideas.",
-      "published": 1841
-    },
-    {
-      "id": "nature",
-      "writerId": "ralph-waldo-emerson",
-      "title": "Nature",
-      "description": "An essay that puts forth the foundation of transcendentalism, a belief system that espouses a non-traditional appreciation of nature.",
-      "published": 1836
-    },
-    {
-      "id": "thus-spoke-zarathustra",
-      "writerId": "friedrich-nietzsche",
-      "title": "Thus Spoke Zarathustra",
-      "description": "A philosophical novel that deals with ideas such as the \"eternal recurrence of the same\", the parable on the \"death of God\", and the \"prophecy\" of the Übermensch.",
-      "published": 1883
-    },
-    {
-      "id": "beyond-good-and-evil",
-      "writerId": "friedrich-nietzsche",
-      "title": "Beyond Good and Evil",
-      "description": "A book that expands the ideas of his previous work, Thus Spoke Zarathustra, with a more critical and polemical approach.",
-      "published": 1886
-    },
-    {
-      "id": "on-the-genealogy-of-morality",
-      "writerId": "friedrich-nietzsche",
-      "title": "On the Genealogy of Morality",
-      "description": "",
-      "published": 1887
-    },
-    {
-      "id": "man-and-his-symbols",
-      "writerId": "carl-jung",
-      "title": "Man and His Symbols",
-      "description": "",
-      "published": 1964
-    },
-    {
-      "id": "the-archetypes-and-the-collective-unconscious",
-      "writerId": "carl-jung",
-      "title": "The Archetypes and the Collective Unconscious",
-      "description": "Part 1 of Volume 9 in The Collected Works of C. G. Jung, a series of books published by Princeton University Press in the U.S. and Routledge & Kegan Paul in the U.K.",
-      "published": 1981
-    },
-    {
-      "id": "memories-dreams-reflections",
-      "writerId": "carl-jung",
-      "title": "Memories, Dreams, Reflections",
-      "description": "An autobiographical book by Swiss psychologist Carl Jung and an associate, Aniela Jaffé.",
-      "published": 1962
-    },
-    {
-      "id": "the-hero-with-a-thousand-faces",
-      "writerId": "joseph-campbell",
-      "title": "The Hero with a Thousand Faces",
-      "description": "A work of comparative mythology by American mythologist Joseph Campbell, in which he discusses his theory of the journey of the archetypal hero found in world mythologies.",
-      "published": 1949
-    },
-    {
-      "id": "the-power-of-myth",
-      "writerId": "joseph-campbell",
-      "title": "The Power of Myth",
-      "description": "A book based on the 1988 PBS documentary Joseph Campbell and the Power of Myth.",
-      "published": 1988
-    },
-    {
-      "id": "the-book-of-secrets-112-meditations-to-discover-the-mystery-within",
-      "writerId": "osho",
-      "title": "The Book of Secrets: 112 Meditations to Discover the Mystery Within",
-      "description": "In this comprehensive and practical guide, the secrets of the ancient science of Tantra become available to a contemporary audience for the first time.",
-      "published": ""
-    },
-    {
-      "id": "love-freedom-aloneness-the-koan-of-relationships",
-      "writerId": "osho",
-      "title": "Love, Freedom, Aloneness: The Koan of Relationships",
-      "description": "",
-      "published": 2002
-    }
-  ],
-  "user": [
+  "seller_account": [
     {
       "id": 1,
       "first_name": "long",
@@ -140,86 +12,144 @@
       "laz_access_token": "50000700b26glHjApYRuee0JyehQ9srdBiiT4k16aa6531xudjHPixdyXUw4gkPc",
       "laz_access_expires": 30000,
       "laz_refresh_token": "asdafeafea",
-      "laz_refresh_expires": 400000,
-      "gen":{ "yy":1 }
+      "laz_refresh_expires": 400000
     }
   ],
-  "products":{
-    "data": {
-      "total_products": 1,
-      "products": [
-        {
-          "skus": [
-            {
-              "compatibleVariation": "Màu trắng 39",
-              "shopSku": "865970346_VNAMZ-2462028534",
-              "sellerSku": "bitisHunter-trangSize39",
-              "available": 2,
-              "quantity": 2,
-              "color_family": "Màu trắng",
-              "size": "EU:39",
-              "package_height": "15.00",
-              "package_width": "20.00",
-              "package_length": "30.00",
-              "package_weight": "1",
-              "price": 899000.0,
-              "special_price": 890000.0,
-              "special_from_time": "2020-09-29 00:00",
-              "special_to_time": "2020-12-31 00:00",
-              "images": [
-                "https://vn-live.slatic.net/p/461ae39b88a220596f8712527c9b72d8.jpg",
-                "https://vn-live.slatic.net/p/93019c48047065e614cc1ff12133e6d0.jpg",
-                "https://vn-live.slatic.net/p/838c1e28ae4c37acd9dc54cc4d933b6e.jpg",
-                "",
-                "",
-                "",
-                "",
-                ""
-              ],
-              "skuId": 2462028534
-            },
-            {
-              "compatibleVariation": "Màu trắng 40",
-              "shopSku": "865970346_VNAMZ-2462028533",
-              "sellerSku": "bitisHunter-trangSize40",
-              "available": 2,
-              "quantity": 2,
-              "color_family": "Màu trắng",
-              "size": "EU:40",
-              "package_height": "15.00",
-              "package_width": "20.00",
-              "package_length": "30.00",
-              "package_weight": "1",
-              "price": 899000.0,
-              "special_price": 890000.0,
-              "special_from_time": "2020-09-29 00:00",
-              "special_to_time": "2020-12-31 00:00",
-              "images": [
-                "https://vn-live.slatic.net/p/461ae39b88a220596f8712527c9b72d8.jpg",
-                "https://vn-live.slatic.net/p/93019c48047065e614cc1ff12133e6d0.jpg",
-                "https://vn-live.slatic.net/p/838c1e28ae4c37acd9dc54cc4d933b6e.jpg",
-                "",
-                "",
-                "",
-                "",
-                ""
-              ],
-              "skuId": 2462028534
-            }
-          ],
-          "product_id": 865970346,
-          "category_id": 7528,
-          "category_name": "Giày nam",
-          "product_name": "Giày bitis hunter nam",
-          "short_description": "<p>M&agrave;u: đen</p>\r\n\r\n<p>Chất liệu: vải, nhựa</p>",
-          "description": "<p style=\"margin: 0;padding: 8.0px 0;white-space: pre-wrap;\"><span style=\"font-family: none;\">Đây là Miêu tả</span></p>",
-          "brand": "No Brand",
-          "status": "active",
-          "seller_id": 1
-        }
-      ]
+  "category":[
+    {
+      "id": 1,
+      "primary_category": "6371",
+      "name": "Sneaker nam"
     },
-    "code": "0",
-    "request_id": "0b8f122f16021679135873592"
-  }
+    {
+      "id": 2,
+      "primary_category": "11197",
+      "name": "Giày lười & Giày mọi nam"
+    },
+    {
+      "id": 3,
+      "primary_category": "6363",
+      "name": "Bốt cao bồi nam"
+    },
+    {
+      "id": 4,
+      "primary_category": "7876",
+      "name": "Giày công sở nam"
+    },
+    {
+      "id": 5,
+      "primary_category": "11194",
+      "name": "Dép xỏ ngón nam"
+    },
+    {
+      "id": 6,
+      "primary_category": " 6247",
+      "name": "Giày búp bê"
+    },
+    {
+      "id": 7,
+      "primary_category": "11147",
+      "name": "Bốt thời trang nữ"
+    },
+    {
+      "id": 8,
+      "primary_category": "6319",
+      "name": "Giày cao gót"
+    },
+    {
+      "id": 9,
+      "primary_category": "7804",
+      "name": "Giày sneaker nữ"
+    }
+  ],
+  "receiving_details":[
+    { "id": 1,
+      "receiving_slipId": 1,
+      "shop_sku": "",
+      "seller_sku": "",
+      "name": "",
+      "color": "",
+      "size": "",
+      "quanity_received": 10,
+      "quantity_approved": 10,
+      "price": 20000
+    },
+    { "id": 2,
+      "receiving_slipId": 1,
+      "shop_sku": "",
+      "seller_sku": "",
+      "name": "",
+      "color": "",
+      "size": "",
+      "quanity_received": 9,
+      "quantity_approved": 4,
+      "price": 30000
+    }
+  ],
+  "receiving_slip":[
+    { "id": 1,
+      "purchase_order_id" : 1,
+      "description": "",
+      "create_date": "",
+      "date_received": "",
+      "provider": "",
+      "telephone": "",
+      "address": "",
+      "status": "pending"
+    }
+  ],
+  "bill":[
+    {
+      "id": 1,
+      "customerId": 1,
+      "create_date": "345",
+      "update_date": "yyyy-mm-dd",
+      "discount": 3000,
+      "total": 10,
+      "status": "success"
+    }
+  ],
+  "bill_item":[
+    {
+      "id": 1,
+      "billId": 1,
+      "shop_sku": "123",
+      "seller_sku": "",
+      "number": "",
+      "price": 1234,
+      "paid_price": 1233
+    }
+  ],
+  "customer": [
+    {
+      "id": 1,
+      "name": "long",
+      "phone_number": "0858267296",
+      "address": "289/13, Ben Van Don",
+      "email": "shenlong20119@gmail.com"
+    }
+  ],
+  "purchase_order":[
+    {"id": 1,
+      "description": "",
+      "create_date": "",
+      "provider": "",
+      "telephone": "",
+      "address": "289/13, Ben Van Don",
+      "status": "pending"
+    }
+  ],
+  "purchase_order_details": [
+    {
+      "id": 1,
+      "purchar_orderId": 1,
+      "shop_sku": "",
+      "seller_sku": "",
+      "name": "",
+      "color": "",
+      "size": "",
+      "quantity_ordered": 1,
+      "price": 1000
+    }
+  ]
 }

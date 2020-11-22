@@ -5,18 +5,40 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import { makeStyles } from '@material-ui/core';
 /* load data Head */
 const headCells = [
-	{ id: 'name', numeric: false, disablePadding: false, label: 'Tên' },
-	{ id: 'sellerSku', numeric: false, disablePadding: false, label: 'Seller SKU' },
-	{ id: 'originPrice', numeric: false, disablePadding: false, label: 'Giá gốc' },
-	{ id: 'price', numeric: false, disablePadding: false, label: 'Giá bán' },
-	{ id: 'available', numeric: false, disablePadding: false, label: 'Sẵn có' },
-	{ id: 'status', numeric: false, disablePadding: false, label: 'Hiển thị' },
-	{ id: 'actions', numeric: false, disablePadding: false, label: 'Thao tác' }
+	{ id: 'image', numeric: false, disablePadding: false, label: 'Hình ảnh', isSort: false },
+	{ id: 'name', numeric: false, disablePadding: false, label: 'Tên', isSort: true },
+	{ id: 'sellerSku', numeric: false, disablePadding: false, label: 'Seller SKU', isSort: true },
+	{ id: 'originPrice', numeric: false, disablePadding: false, label: 'Giá gốc', isSort: true },
+	{ id: 'price', numeric: false, disablePadding: false, label: 'Giá bán' , isSort: true},
+	{ id: 'available', numeric: false, disablePadding: false, label: 'Sẵn có' , isSort: true},
+	{ id: 'status', numeric: false, disablePadding: false, label: 'Hiển thị' , isSort: true},
+	{ id: 'actions', numeric: false, disablePadding: false, label: 'Thao tác' , isSort: false}
 ];
+
+const useStyles = makeStyles((theme)=>({
+	tableCell: {
+		paddingLeft: theme.spacing(0),
+		paddingRight: theme.spacing(0)
+	},
+	visuallyHidden: {
+		border: 0,
+		clip: 'rect(0 0 0 0)',
+		height: 1,
+		margin: -1,
+		overflow: 'hidden',
+		padding: 0,
+		position: 'absolute',
+		top: 20,
+		width: 1,
+	}
+}))
+
 function EnhancedTableHead(props) {
-	const { classes, order, orderBy, onRequestSort } = props;
+	const { order, orderBy, onRequestSort } = props;
+	const classes = useStyles();
 	const createSortHandler = (property) => (event) => {
 		onRequestSort(event, property);
 	};
@@ -25,7 +47,8 @@ function EnhancedTableHead(props) {
 		<TableHead>
 			<TableRow>
 				{headCells.map((headCell) => (
-					<TableCell
+					headCell.isSort ? (<TableCell
+						className={classes.tableCell}
 						key={headCell.id}
 						align={headCell.numeric ? 'right' : 'left'}
 						padding={headCell.disablePadding ? 'none' : 'default'}
@@ -44,7 +67,16 @@ function EnhancedTableHead(props) {
 								</span>
 							) : null}
 						</TableSortLabel>
-					</TableCell>
+					</TableCell>) : (
+							<TableCell
+							className={classes.tableCell}
+							key={headCell.id}
+							align={headCell.numeric ? 'right' : 'left'}
+							padding={headCell.disablePadding ? 'none' : 'default'}
+							sortDirection={orderBy === headCell.id ? order : false}>
+								{headCell.label}
+							</TableCell>
+						)
 				))}
 			</TableRow>
 		</TableHead>

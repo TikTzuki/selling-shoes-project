@@ -31,141 +31,14 @@ import { getProducts } from '../../../actions/product';
 import PopverButton from '../../PopoverButton/PopverButton';
 import {sha256} from 'js-sha256';
 import Axios from 'axios';
-import { axiosJsonServer } from '../../../ultils/api';
+import { axiosHeroku, axiosJsonServer } from '../../../ultils/api';
+import { Image } from '@material-ui/icons';
 
-function createData(name, sellerSku, createDate, price, specialPrice, availableQuantity, status, actions) {
+function createData(name, SellerSku, price, special_price, quantity, Status, actions) {
 	return {
-		name,
-		sellerSku,
-		createDate,
-		price,
-		specialPrice,
-		availableQuantity,
-		status,
-		actions: ""
+		name, SellerSku, price, special_price, quantity, Status, actions
 	};
 }
-/*
-let rows = [
-	createData(
-
-	),
-	createData('Donut', 452, 25.0, 51, 4.9,
-		[
-			{
-				variation: "Nhóm màu:Màu trắng kem",
-				shop_sku: "419096130_VNAMZ-739790405",
-				sku: "419096130-1578375237751-0",
-				invoice_number: "",
-				order_item_id: 259784013095775,
-				name: "Cát tắm thơm dành cho hamster 1kg",
-				order_id: 259784012995775,
-				status: "pending",
-				item_price: 11800.00,
-				paid_price: 11800.00,
-				product_main_image: "https://vn-live.slatic.net/p/dfbd4cb465fea973d3fbd318953949b4.jpg",
-				created_at: "2020-10-26 19:47:59 +0700",
-				updated_at: "2020-10-26 19:48:01 +0700",
-				shipping_fee_original: 4233.00,
-				shipping_fee_discount_platform: 4233.00
-			},
-			{
-				variation: "Nhóm màu:Màu trắng kem",
-				shop_sku: "419096130_VNAMZ-739790405",
-				sku: "419096130-1578375237751-0",
-				invoice_number: "",
-				order_item_id: 259784013195775,
-				name: "Cát tắm thơm dành cho hamster 1kg",
-				shop_id: "TRẦN PHAN THANH LONG",
-				order_id: 259784012995775,
-				status: "pending",
-				item_price: 11800.00,
-				paid_price: 11800.00,
-				product_main_image: "https://vn-live.slatic.net/p/dfbd4cb465fea973d3fbd318953949b4.jpg",
-				created_at: "2020-10-26 19:47:59 +0700",
-				updated_at: "2020-10-26 19:48:01 +0700",
-				shipping_fee_original: 4233.00,
-				shipping_fee_discount_platform: 4233.00
-			}
-		]),
-	createData('Eclair', 262, 16.0, 24, 6.0,
-		[
-			{
-				variation: "Nhóm màu:Màu trắng kem",
-				shop_sku: "419096130_VNAMZ-739790405",
-				sku: "419096130-1578375237751-0",
-				invoice_number: "",
-				order_item_id: 259784013095775,
-				name: "Cát tắm thơm dành cho hamster 1kg",
-				order_id: 259784012995775,
-				status: "pending",
-				item_price: 11800.00,
-				paid_price: 11800.00,
-				product_main_image: "https://vn-live.slatic.net/p/dfbd4cb465fea973d3fbd318953949b4.jpg",
-				created_at: "2020-10-26 19:47:59 +0700",
-				updated_at: "2020-10-26 19:48:01 +0700",
-				shipping_fee_original: 4233.00,
-				shipping_fee_discount_platform: 4233.00
-			},
-			{
-				variation: "Nhóm màu:Màu trắng kem",
-				shop_sku: "419096130_VNAMZ-739790405",
-				sku: "419096130-1578375237751-0",
-				invoice_number: "",
-				order_item_id: 259784013195775,
-				name: "Cát tắm thơm dành cho hamster 1kg",
-				shop_id: "TRẦN PHAN THANH LONG",
-				order_id: 259784012995775,
-				status: "pending",
-				item_price: 11800.00,
-				paid_price: 11800.00,
-				product_main_image: "https://vn-live.slatic.net/p/dfbd4cb465fea973d3fbd318953949b4.jpg",
-				created_at: "2020-10-26 19:47:59 +0700",
-				updated_at: "2020-10-26 19:48:01 +0700",
-				shipping_fee_original: 4233.00,
-				shipping_fee_discount_platform: 4233.00
-			}
-		]),
-	createData('Frozen yoghurt', 159, 6.0, 24, 4.0,
-		[
-			{
-				variation: "Nhóm màu:Màu trắng kem",
-				shop_sku: "419096130_VNAMZ-739790405",
-				sku: "419096130-1578375237751-0",
-				invoice_number: "",
-				order_item_id: 259784013095775,
-				name: "Cát tắm thơm dành cho hamster 1kg",
-				order_id: 259784012995775,
-				status: "pending",
-				item_price: 11800.00,
-				paid_price: 11800.00,
-				product_main_image: "https://vn-live.slatic.net/p/dfbd4cb465fea973d3fbd318953949b4.jpg",
-				created_at: "2020-10-26 19:47:59 +0700",
-				updated_at: "2020-10-26 19:48:01 +0700",
-				shipping_fee_original: 4233.00,
-				shipping_fee_discount_platform: 4233.00
-			},
-			{
-				variation: "Nhóm màu:Màu trắng kem",
-				shop_sku: "419096130_VNAMZ-739790405",
-				sku: "419096130-1578375237751-0",
-				invoice_number: "",
-				order_item_id: 259784013195775,
-				name: "Cát tắm thơm dành cho hamster 1kg",
-				shop_id: "TRẦN PHAN THANH LONG",
-				order_id: 259784012995775,
-				status: "pending",
-				item_price: 11800.00,
-				paid_price: 11800.00,
-				product_main_image: "https://vn-live.slatic.net/p/dfbd4cb465fea973d3fbd318953949b4.jpg",
-				created_at: "2020-10-26 19:47:59 +0700",
-				updated_at: "2020-10-26 19:48:01 +0700",
-				shipping_fee_original: 4233.00,
-				shipping_fee_discount_platform: 4233.00
-			}
-		])
-];
-*/
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -201,50 +74,39 @@ function TableProduct(props) {
 	const [page, setPage] = React.useState(0);
 	const [dense, setDense] = React.useState(false);
 	const [rowsPerPage, setRowsPerPage] = React.useState(5);
-	const [expandedRow, setExpandedRow] = React.useState([]);
 	const [rows, setRows] = useState([])
+	const {filter} = props;
 	//const products = useSelector(state => state.productsState.products);
 	let products = [];
-	useEffect(() => {
-		const getUser = async ()=>{
-			await axiosJsonServer.get('user?id=1')
-			.then(res=>{
-				let user = res.data;
-				console.log(user);
-			})
-		}
-		getUser();
-
-		const getAllProducts = async () => {
-			await Axios.get(`http://localhost:3001/products?${searchProduct.statement}`)
-				.then(res => {
-					console.log(searchProduct.statement);
-					console.log(res.data);
-					/*
-					//console.log(res.data.data.products);
-					products = res.data.data.products;
-					//dispatch(getProducts(productAPI))
-					let rowsTemp = [];
-					products.forEach((product, index) => {
-						product.skus.forEach((sku) => {
-							rowsTemp = rowsTemp.concat({
-								productId: product.product_id,
-								name: `${product.product_name} ${sku.compatibleVariation}`,
-								shopSku: sku.shopSku,
-								sellerSku: sku.sellerSku,
-								originPrice: sku.price,
-								price: (typeof (sku.special_price) !== undefined) ? sku.special_price : null,
-								available: sku.available,
-								status: product.status
-							});
-						})
+	const fetchProducts = async () => {
+		await axiosHeroku.get(`/products/get?filter=${filter}${searchProduct.statement}`)
+			.then(res => {
+				console.log(`/products/get?filter=${filter}${searchProduct.statement}`);
+				let products = Boolean(res.data.data.products) ? res.data.data.products : [] ;
+				let rowsTemp = [];
+				products.forEach(function(product, index){
+					product.skus.forEach((sku, index)=>{
+						let row = {};
+						row.name= product.attributes.name;
+						row.item_id = product.item_id;
+						row.sellerSku = sku.SellerSku;
+						row.image = sku.Images[0];
+						row.price = sku.price;
+						row.special_price = Boolean(sku.special_price) ? sku.special_price : '-' ;
+						row.quantity = Boolean(sku.available) ? sku.available : sku.quantity;
+						row.status = sku.Status
+						rowsTemp.push(row);
 					});
-					setRows(rowsTemp);*/
-				})
-		}
-		//getAllProducts();
+				});
+				setRows(rowsTemp);
+			})
+	}
+	useEffect(() => {
+		fetchProducts();
 	}, [])
-
+	useEffect(()=>{
+		fetchProducts();
+	}, [searchProduct])
 	const handleRequestSort = (event, property) => {
 		const isAsc = (orderBy === property && order === 'asc');
 		setOrder(isAsc ? 'desc' : 'asc');
@@ -261,40 +123,6 @@ function TableProduct(props) {
 		setSelected([]);
 	};
 
-	const handleCheck = (event, name) => {
-		const selectedIndex = selected.indexOf(name);
-		let newSelected = [];
-
-		if (selectedIndex === -1) { //Case newSelected array didn't constraint element then add the element
-			newSelected = newSelected.concat(selected, name);
-		} else { //Case newSelected constrain the element, delete the element from newSelected
-			newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1))
-		}
-		/*else if (selectedIndex === 0) {
-				newSelected = newSelected.concat(selected.slice(1));
-		} else if (selectedIndex === selected.length - 1) {
-				newSelected = newSelected.concat(selected.slice(0, -1));
-		} else if (selectedIndex > 0) {
-				newSelected = newSelected.concat(
-						selected.slice(0, selectedIndex),
-						selected.slice(selectedIndex + 1),
-				);
-		}*/
-
-		setSelected(newSelected);
-	};
-	const handleExpand = (event, name) => {
-		const expandedIndex = expandedRow.indexOf(name);
-		let newExpandRow = [];
-		if (expandedIndex === -1) {
-			newExpandRow = newExpandRow.concat(expandedRow, name);
-		} else {
-			newExpandRow = newExpandRow.concat(expandedRow.slice(0, expandedIndex), expandedRow.slice(expandedIndex + 1));
-		}
-		//console.log(expandedIndex);
-		//console.log(newExpandRow);
-		setExpandedRow(newExpandRow);
-	}
 	const handleChangePage = (event, newPage) => {
 		setPage(newPage);
 	};
@@ -349,13 +177,16 @@ function TableProduct(props) {
 											selected={isItemSelected}
 										>
 											<TableCell component="th" id={labelId} scope="row" padding="none">
+												<img style={{maxWidth:'10rem'}} src={`${row.image}`}/>
+											</TableCell>
+											<TableCell style={{maxWidth:'10rem'}} component="th" id={labelId} scope="row" padding="none">
 												{row.name}
 											</TableCell>
-											<TableCell align="left">{row.sellerSku}</TableCell>
-											<TableCell align="left">{row.originPrice}</TableCell>
+											<TableCell style={{maxWidth:'150px', wordWrap: 'break-word'}} align="left">{row.sellerSku}</TableCell>
 											<TableCell align="left">{row.price}</TableCell>
-											<TableCell align="left">{row.available}</TableCell>
-											<TableCell align="left">{row.available}</TableCell>
+											<TableCell align="left">{row.special_price}</TableCell>
+											<TableCell align="left">{row.quantity}</TableCell>
+											<TableCell align="left">{row.status}</TableCell>
 											<TableCell align="left">
 												<PopverButton itemTarget={{link: `/product/${row.productId}`}} />
 											</TableCell>

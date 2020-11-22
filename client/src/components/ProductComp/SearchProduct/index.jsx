@@ -1,18 +1,30 @@
-import { Button, Grid, Input, makeStyles } from '@material-ui/core'
-import { Field, withFormik } from 'formik';
+import { Button, Grid, Input, makeStyles, TextField } from '@material-ui/core'
+import { Field, Form, withFormik } from 'formik';
 import React from 'react'
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { compose } from 'redux';
+import { searchProductAction } from '../../../actions/searchProduct';
 import getThemeByName from '../../../ultils/themes/base';
-
+import * as Yup from 'yup';
 const formik = {
 	mapPropsToValues() {
 		return {
-			name: ``,
-			sellerSku: ``
+			filter: ``,
+			create_after: ``,
+			create_before: ``,
+			update_after: ``,
+			update_before: ``,
+			sku_seller_list: ``,
+			search: ``
 		}
-	}
+	},
+	validationSchema: Yup.object().shape({
+		create_after: Yup.date(),
+		create_before: Yup.date(),
+		update_after: Yup.date(),
+		update_before: Yup.date()
+	})
 }
 const useStyle = makeStyles((theme) => ({
 	container: {
@@ -20,6 +32,11 @@ const useStyle = makeStyles((theme) => ({
 	},
 	searchItem: {
 		paddingLeft: theme.spacing(3)
+	},
+	textField: {
+		paddingLeft: theme.spacing(1),
+		paddingRight: theme.spacing(1),
+		maxWidth: "10rem"
 	}
 }))
 const SearchProduct = (props) => {
@@ -29,41 +46,71 @@ const SearchProduct = (props) => {
 	const dispatch = useDispatch();
 	console.log(searchProduct);
 
-	const handleClick = (event) => {
-		let searchObject = {
-			name: values.name,
-			sellerSku: values.sellerSku
-		}
-		dispatch({ type: 'SEARCH', payload: searchObject })
+	const handleSearch = (event) => {
+		dispatch(searchProductAction({...values}));
 	}
-	
+
 	return (
 		<div>
 			<Grid container className={classes.container}>
 				<Grid item xs={2}>
-					<Button> Thêm sản phẩm </Button>
+					<Button variant="contained" color="default"> Thêm sản phẩm </Button>
 				</Grid>
-				<Grid item xs={2} className={classes.searchItem}>
+				<Form>
 					<Field
-						name='name'
-						render={({ field }) => (
-							<Input {...field} placeholder={`Tên sản phẩm${searchProduct.name}`} />
-						)}
-					/>
-				</Grid>
-				<Grid item xs={2} className={classes.searchItem}>
-					<Field
-						name='sellerSku'
+						name='create_after'
 						render={({field})=>(
-							<Input {...field} placeholder={`Seller Sku`} />
+							<TextField
+							size="small"
+							type="date"
+							label="Ngày tạo-từ"
+							InputLabelProps={{
+								shrink: true,
+							}}
+							color="secondary"
+							className={classes.textField}
+							{...field}/>
 						)}
 					/>
-				</Grid>
-				<Grid item xs={2} className={classes.searchItem}>
-					<Button variant='outlined' onClick={handleClick}>
+					<Field
+						name='create_before'
+						render={({field})=>(
+							<TextField
+							size="small"
+							type="date"
+							label="Ngày tạo-đến"
+							InputLabelProps={{
+								shrink: true,
+							}}
+							color="secondary"
+							className={classes.textField}
+							{...field}/>
+						)}
+					/>
+					<Field name='search'
+						render={({field})=>(
+							<TextField
+							label="Tên sản phẩm"
+							size="small"
+							color="secondary"
+							className={classes.textField}
+							{...field}/>
+						)}
+					/>
+					<Field name='sku_seller_list'
+						render={({field})=>(
+							<TextField
+							label="Seller Sku"
+							size="small"
+							color="secondary"
+							className={classes.textField}
+							{...field}/>
+						)}
+					/>
+					<Button variant='contained' color="default" onClick={handleSearch}>
 						Tìm kiếm
           </Button>
-				</Grid>
+				</Form>
 			</Grid>
 		</div>
 	)

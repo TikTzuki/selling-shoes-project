@@ -27,11 +27,11 @@ public class LazOrderController {
 	//GetOrders: Lay tat ca order
 	@RequestMapping(method = RequestMethod.GET, value="/get")
 	public ResponseEntity<String> lazOrdersGet(
-				@RequestParam(name = "create_before", required = false) String createBefore,
-				@RequestParam(name = "create_after", required = false, defaultValue = "2020-11-01T00:00:00+0800") String createAfter,
+				@RequestParam(name = "created_before", required = false) String createBefore,
+				@RequestParam(name = "created_after", required = false, defaultValue = "2020-11-01T00:00:00+0800") String createAfter,
 				@RequestParam(name = "update_before", required = false) String updateBefore,
 				@RequestParam(name = "update_after", required = false) String updateAfter,
-				@RequestParam(name = "status", required = false, defaultValue = "pending") String status,
+				@RequestParam(name = "status", required = false) String status,
 				@RequestParam(name="offset", required = false) String offset,
 				@RequestParam(name = "limit", required = false) String limit,
 				@RequestParam(name="sort_direction", required = false, defaultValue = "DECS") String sortDirection,

@@ -6,8 +6,8 @@ function Copyright() {
     return (
       <Typography variant="body2" color="textSecondary" align="center">
         {'Copyright © '}
-        <Link component={RouterLink} color="inherit" to="https://material-ui.com/">
-          Your Website
+        <Link component={RouterLink} color="inherit" to="https://www.facebook.com/tiktokLg/">
+          TikTzuki
         </Link>{' '}
         {new Date().getFullYear()}
         {'.'}

@@ -20,9 +20,9 @@ const searchLazorder = (state = initialState, action)=>{
       for (let prop in payload) {
         if (Object.prototype.hasOwnProperty.call(payload, prop)) {
           if(prop.includes("before")||prop.includes("after")){
-            statement+= payload[`${prop}`] !== `` ? `&${prop}=${payload[`${prop}`]}T00:00:00+08:00` : '';
+            statement+= Boolean(payload[`${prop}`]) ? `&${prop}=${payload[`${prop}`]}T00:00:00+08:00` : '';
           } else {
-            statement+= payload[`${prop}`] !== `` ? `&${prop}=${payload[`${prop}`]}` : '';
+            statement+= Boolean(payload[`${prop}`]) ? `&${prop}=${payload[`${prop}`]}` : '';
           }
         }
     }

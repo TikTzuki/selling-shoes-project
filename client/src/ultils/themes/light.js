@@ -38,15 +38,15 @@ export const lightTheme = createMuiTheme(
           },
           "type": "light",
           "primary": {
-            "light": "#7986cb",
+            "light": "#6573c3",
             "main": "#3f51b5",
-            "dark": "#303f9f",
+            "dark": "#2c387e",
             "contrastText": "#fff"
           },
           "secondary": {
-            "light": "#C1CFDE",
-            "main": "#A6ABAB", //f50057
-            "dark": "#273545",
+            "light": "#35baf6",
+            "main": "#03a9f4", //f50057
+            "dark": "#0276aa",
             "contrastText": "#3D3D3D"
           },
           "error": {

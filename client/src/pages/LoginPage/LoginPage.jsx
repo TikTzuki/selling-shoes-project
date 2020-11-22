@@ -20,27 +20,36 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Field, Form, withFormik } from 'formik';
 import { compose } from 'recompose';
 import * as Yup from 'yup';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
+import EmailTwoToneIcon from '@material-ui/icons/EmailTwoTone';
+import DialpadTwoToneIcon from '@material-ui/icons/DialpadTwoTone';
+import { axiosJsonServer } from '../../ultils/api';
+import { actionLogin } from '../../actions/user';
 
 const formikForm = {
   mapPropsToValues() {
     return {
       email: '',
+      phone_number: '',
       password: '',
       rememberMe: true
     }
   },
   validationSchema: Yup.object().shape({
+    phone_number: Yup.string()
+      .required('Phone number is required'),
     email: Yup.string()
       .required('Email is required')
       .email('Email is invalid'),
+
     password: Yup.string()
       .required('Password is required')
       .min(8, 'Password must have min 8 character'),
     rememberMe: Yup.boolean()
   })
 }
+
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
@@ -75,24 +84,37 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
 }));
-async function logIn(loginInfo){
-  await axios.get(`http://localhost:3001/api/login?email=${loginInfo.email}&password=${loginInfo.password}`)
-    .then((res)=>{
-      //TODO: 
-    }).catch(e=>{});
-}
+
+
 function LoginPage(props) {
   const classes = useStyles();
   const currentUser = useSelector(state => state.user);
   const { multiTheme, values } = props;
-
-  console.log(currentUser);
+  const [currentWay, setCurrentWay] = useState('email');
   const handleSubmit = (e) => {
-    //Login
-    let result = logIn({email: values.email, password: values.password});
-    //TODO:
-
-    return false;
+    logIn(values,currentWay);
+  }
+  const handleSwitchLoginWay = (e)=>{
+    setCurrentWay(currentWay==='email'? 'phone' : 'email');
+  }
+  async function logIn(loginInfo, loginWay){
+    let statement = loginWay==='email' ? 
+      `email=${loginInfo.email}&password=${loginInfo.password}` :
+      `phone_number=${loginInfo.phone_number}&password=${loginInfo.password}`;
+    
+    await axiosJsonServer.get(`/seller_account?${statement}`)
+      .then((res)=>{
+        let user = res.data[0];
+        if(Boolean(user)){
+          if(loginInfo.rememberMe){
+            console.log(user);
+            localStorage.setItem('seller-account', JSON.stringify(user))
+          }
+          //window.location.reload(true);
+        } else {
+          console.log('unlogged')
+        }
+      }).catch(e=>{});
   }
   return (
     <Grid container component="main" className={classes.root}>
@@ -110,24 +132,42 @@ function LoginPage(props) {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Đăng nhập
             </Typography>
           <Form className={classes.form} onSubmit={handleSubmit} noValidate>
-            <Field
-              id='email'
-              name='email'
-              render={({ field }) =>
-                <TextField
-                  margin="normal"
-                  variant="outlined"
-                  label="Email Address"
-                  autoComplete="email"
-                  required
-                  fullWidth
-                  autoFocus
-                  {...field} />
-              } />
-              {<FormHelperText>{props.errors.email}</FormHelperText>}
+            <IconButton style={{paddingBottom: 0}} aria-label="switch-login-button" color="primary" onClick={handleSwitchLoginWay}>
+              {currentWay==='email' ? <EmailTwoToneIcon/> : <DialpadTwoToneIcon/>}
+            </IconButton>
+            {currentWay === 'email' ?
+              <><Field
+                id='email'
+                name='email'
+                render={({ field }) =>
+                  <TextField
+                    margin="normal"
+                    variant="outlined"
+                    label="Email Address"
+                    autoComplete="email"
+                    fullWidth
+                    autoFocus
+                    {...field} />
+                } />
+                {<FormHelperText error>{props.errors.email}</FormHelperText>}</>
+              :
+              <><Field
+                id='phone_number'
+                name='phone_number'
+                render={({ field }) =>
+                  <TextField
+                    margin="normal"
+                    variant="outlined"
+                    label="Phone number"
+                    fullWidth
+                    autoFocus
+                    {...field} />
+                } />
+                {<FormHelperText error>{props.errors.phone_number}</FormHelperText>}</>
+            }
             <Field
               name='password'
               render={({ field }) =>
@@ -142,6 +182,7 @@ function LoginPage(props) {
                   fullWidth
                   {...field} />
               } />
+              {<FormHelperText error>{props.errors.password}</FormHelperText>}
             <Field
               name="rememberMe"
               render={({field}) => (

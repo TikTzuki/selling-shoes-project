@@ -80,11 +80,12 @@ const TableLazOrder = (props) => {
 	const searchLazOrder = useSelector(state => state.searchLazOrder);
 	const {status} = props;
 	const fectchOrders = async ()=>{
-		await axiosHeroku.get(`/laz-orders/get?${searchLazOrder.statement}&status=${status}`).then(res=>{
-			console.log(searchLazOrder.statement);
+		await axiosHeroku.get(`/laz-orders/get?status=${status}${searchLazOrder.statement}`).then(res=>{
+			console.log(`/laz-orders/get?status=${status}${searchLazOrder.statement}`);
 			let orders = res.data.data.orders;
 			console.log(" mounted table laz order  ");
 			console.log(searchLazOrder);
+			console.log(orders);
 			setRows(orders);
 		})
 	}
@@ -96,33 +97,22 @@ const TableLazOrder = (props) => {
 
 	const handleSelectAllClick = (event) => {
 		if (event.target.checked) {
-			const newSelecteds = rows.map((n) => n.name);
+			const newSelecteds = rows.map((n) => n.order_id);
 			setSelected(newSelecteds);
 			return;
 		}
 		setSelected([]);
 	};
 
-	const handleCheck = (event, name) => {
-		const selectedIndex = selected.indexOf(name);
+	const handleCheck = (event, order_id) => {
+		const selectedIndex = selected.indexOf(order_id);
 		let newSelected = [];
 
 		if (selectedIndex === -1) { //Case newSelected array didn't constraint element then add the element
-			newSelected = newSelected.concat(selected, name);
+			newSelected = newSelected.concat(selected, order_id);
 		} else { //Case newSelected constrain the element, delete the element from newSelected
 			newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1))
 		}
-		/*else if (selectedIndex === 0) {
-				newSelected = newSelected.concat(selected.slice(1));
-		} else if (selectedIndex === selected.length - 1) {
-				newSelected = newSelected.concat(selected.slice(0, -1));
-		} else if (selectedIndex > 0) {
-				newSelected = newSelected.concat(
-						selected.slice(0, selectedIndex),
-						selected.slice(selectedIndex + 1),
-				);
-		}*/
-
 		setSelected(newSelected);
 	};
 	const handleExpand = (event, name) => {
@@ -163,7 +153,7 @@ const TableLazOrder = (props) => {
 	return (
 		<div className={classes.root}>
 			<Paper className={classes.paper}>
-				<EnhancedTableToolbar numSelected={selected.length} />
+				<EnhancedTableToolbar numSelected={selected.length} status={status} />
 				<TableContainer>
 					<Table
 						className={classes.table}

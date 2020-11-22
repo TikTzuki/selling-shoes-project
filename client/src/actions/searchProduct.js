@@ -1,4 +1,4 @@
-export const searchProduct = (searchObject)=>{
+export const searchProductAction = (searchObject)=>{
     return{
         type: 'SEARCH',
         payload: searchObject

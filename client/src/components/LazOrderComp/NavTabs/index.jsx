@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
 function NavTabs(props) {
   const search = props.search;
   const classes = useStyles();
-  const [value, setValue] = React.useState(2);
+  const [value, setValue] = React.useState(1);
   const searchLazOrder = useSelector(state => state.searchLazOrder)
   const dispatch = useDispatch();
 

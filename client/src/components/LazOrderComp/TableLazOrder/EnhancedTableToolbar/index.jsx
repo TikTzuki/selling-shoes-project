@@ -8,6 +8,9 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
+import { Button, List, ListItem, Popover } from '@material-ui/core';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import { Link } from 'react-router-dom';
 
 const useToolbarStyles = makeStyles((theme) => ({
 	root: {
@@ -26,29 +29,125 @@ const useToolbarStyles = makeStyles((theme) => ({
 			},
 	title: {
 		flex: '1 1 100%',
+		//maxWidth: '10rem'
+		//paddingRight: theme.spacing(2)
 	},
+	listPopver: {
+		padding: theme.spacing(0)
+	}
 }));
 const EnhancedTableToolbar = (props) => {
 	const classes = useToolbarStyles();
-	const { numSelected } = props;
-
+	const { numSelected, status } = props;
+	const [anchorElPrint, setAnchorElPrint] = React.useState(null);
+	const [anchorElStatus, setAnchorElStatus] = React.useState(null);
+	const openPrint = Boolean(anchorElPrint);
+	const openStatus = Boolean(anchorElStatus);
+	const idPrint = openPrint ? 'simple-popover' : undefined;
+	const idStatus = openStatus ? 'simple-popover' : undefined;
+	console.log(status);
+	const handlePopverPrint = (e) => {
+		setAnchorElPrint(e.currentTarget);
+	}
+	const handleClosePrint = () => {
+		setAnchorElPrint(null);
+	};
+	const handlePopverStatus = (e) => {
+		setAnchorElStatus(e.currentTarget);
+	}
+	const handleCloseStatus = () => {
+		setAnchorElStatus(null);
+	};
 	return (
 		<Toolbar
 			className={clsx(classes.root, {
 				[classes.highlight]: numSelected > 0,
 			})}
 		>
-			{numSelected > 0 ? (
-				<Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
-					{numSelected} selected
+			{numSelected > 0 ? (<>
+				<Typography className={classes.title} variant="h6" id="tableTitle" component="div">
+					<Button aria-describedby={idPrint} variant="outlined" color="inherit" size="small" onClick={handlePopverPrint}>
+						In tài liệu
+						<ArrowDropDownIcon fontSize="small" />
+					</Button>
+					<Popover
+						id={idPrint}
+						anchorEl={anchorElPrint}
+						onClose={handleClosePrint}
+						anchorOrigin={{
+							vertical: 'bottom',
+							horizontal: 'right',
+						}}
+						transformOrigin={{
+							vertical: 'top',
+							horizontal: 'right',
+						}}
+						open={openPrint}
+					>
+						<List>
+							<ListItem className={classes.listPopver} >
+								<Button color="secondary" size="small" variant="text" fullWidth>
+									In hóa đơn
+						</Button>
+							</ListItem>
+							<ListItem className={classes.listPopver}>
+								<Button color="secondary" size="small" variant="text" fullWidth>
+									In tem vận chuyển
+						</Button>
+							</ListItem>
+						</List>
+					</Popover>
+					{/* Status */}
+					{status === 'pending' || status === 'ready_to_ship' ? (
+						<><Button aria-describedby={idStatus} style={{ marginLeft: '2rem' }} size="small" color="inherit" variant="outlined" onClick={handlePopverStatus}>
+						Chuyển trạng thái
+					<ArrowDropDownIcon fontSize="small" />
+					</Button>
+					<Popover
+						id={idStatus}
+						anchorEl={anchorElStatus}
+						onClose={handleCloseStatus}
+						anchorOrigin={{
+							vertical: 'bottom',
+							horizontal: 'right',
+						}}
+						transformOrigin={{
+							vertical: 'top',
+							horizontal: 'right',
+						}}
+						open={openStatus}
+					>
+						<List>
+							<ListItem className={classes.listPopver}>
+								<Button color="secondary" variant="text" fullWidth size="small">
+									Sẵn sàng giao hàng
+										</Button>
+							</ListItem>
+							<ListItem className={classes.listPopver}>
+								<Button color="secondary" variant="text" fullWidth size="small">
+									Hủy
+									</Button>
+							</ListItem>
+						</List>
+					</Popover></>
+					) : (<>
+						</>
+						)}
 				</Typography>
+			</>
 			) : (
 					<Typography className={classes.title} variant="h6" id="tableTitle" component="div">
 						Hóa đơn lazada
 					</Typography>
 				)}
-
 			{numSelected > 0 ? (
+				<Tooltip title="Delete">
+					<Typography align="right" className={classes.title} color="inherit" variant="subtitle1" component="div">
+						{numSelected} selected
+					</Typography>
+				</Tooltip>
+			) : (<></>)}
+			{/*numSelected > 0 ? (
 				<Tooltip title="Delete">
 					<IconButton aria-label="delete">
 						<DeleteIcon />
@@ -60,7 +159,7 @@ const EnhancedTableToolbar = (props) => {
 							<FilterListIcon />
 						</IconButton>
 					</Tooltip>
-				)}
+			)*/}
 		</Toolbar>
 	);
 };
