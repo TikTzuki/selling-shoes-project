@@ -142,7 +142,7 @@
   "purchase_order_details": [
     {
       "id": 1,
-      "purchar_orderId": 1,
+      "purchase_orderId": 1,
       "shop_sku": "",
       "seller_sku": "",
       "name": "",

@@ -1,9 +1,7 @@
 import React from 'react'
+import OrderLocalComp from '../../components/OrderLocalComp/OrderLocalComp'
 
 const LocalBillPage=()=>{
-
-    return(<div>
-        Bill Page
-    </div>)
+    return(<OrderLocalComp/>)
 }
 export default LocalBillPage
