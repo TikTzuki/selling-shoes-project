@@ -63,6 +63,7 @@ public class ProductController {
 			@RequestParam(name="option", required = false) String option,
 			@RequestParam(name="sku_seller_list", required = false) String skuSellerList
 			){
+				System.out.println(skuSellerList);
 		String responseJson = productService.getProducts(accessToken, lazUrl, appkey, appSecret, filter, search, createAfter, createBefore, updateAfter, updateBefore, offset, limit, option, skuSellerList);
 		return new ResponseEntity<String>(responseJson,HttpStatus.OK);
 	}

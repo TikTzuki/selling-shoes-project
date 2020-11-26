@@ -2,8 +2,8 @@
   "seller_account": [
     {
       "id": 1,
-      "first_name": "long",
-      "last_name": "tran",
+      "first_name": "Long Long",
+      "last_name": "Tran Tran",
       "phone_number": "0858267296",
       "email": "shenlong20119@gmail.com",
       "password": "00ab1b7b6708904653086417f8fbcd12",
@@ -15,7 +15,7 @@
       "laz_refresh_expires": 400000
     }
   ],
-  "category":[
+  "category": [
     {
       "id": 1,
       "primary_category": "6371",
@@ -62,8 +62,9 @@
       "name": "Giày sneaker nữ"
     }
   ],
-  "receiving_details":[
-    { "id": 1,
+  "receiving_details": [
+    {
+      "id": 1,
       "receiving_slipId": 1,
       "shop_sku": "",
       "seller_sku": "",
@@ -74,7 +75,8 @@
       "quantity_approved": 10,
       "price": 20000
     },
-    { "id": 2,
+    {
+      "id": 2,
       "receiving_slipId": 1,
       "shop_sku": "",
       "seller_sku": "",
@@ -86,9 +88,10 @@
       "price": 30000
     }
   ],
-  "receiving_slip":[
-    { "id": 1,
-      "purchase_order_id" : 1,
+  "receiving_slip": [
+    {
+      "id": 1,
+      "purchase_order_id": 1,
       "description": "",
       "create_date": "",
       "date_received": "",
@@ -98,7 +101,7 @@
       "status": "pending"
     }
   ],
-  "bill":[
+  "bill": [
     {
       "id": 1,
       "customerId": 1,
@@ -109,7 +112,7 @@
       "status": "success"
     }
   ],
-  "bill_item":[
+  "bill_item": [
     {
       "id": 1,
       "billId": 1,
@@ -129,8 +132,9 @@
       "email": "shenlong20119@gmail.com"
     }
   ],
-  "purchase_order":[
-    {"id": 1,
+  "purchase_order": [
+    {
+      "id": 1,
       "description": "",
       "create_date": "",
       "provider": "",

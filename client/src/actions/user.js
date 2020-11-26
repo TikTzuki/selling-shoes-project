@@ -1,23 +1,23 @@
 export const actionLogin = (user)=>{
     return {
-        action: "LOGIN",
+        type: "LOGIN",
         payload: user,
     }
 }
 export const signUp = (user)=>{
     return {
-        action: "SIGN_UP",
+        type: "SIGN_UP",
         payload: user,
     }
 }
 export const logOut = ()=>{
     return {
-        action: "LOG_OUT"
+        type: "LOG_OUT"
     }
 }
-export const updateUser = (user)=>{
+export const updateUserAction = (user)=>{
     return{
-        action: "UPDATE",
+        type: "UPDATE_PROFILE",
         payload: user
     }
 }

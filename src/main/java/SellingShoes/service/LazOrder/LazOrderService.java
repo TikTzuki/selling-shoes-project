@@ -24,6 +24,9 @@ public class LazOrderService {
 			String sortBy) {
 		LazopClient client = new LazopClient(lazUrl, appkey, appSecret);
 		LazopRequest request = new LazopRequest();
+		System.out.println("------------------------------");
+		System.out.println(createAfter);
+		System.out.println("------------------------------");
 		request.setApiName("/orders/get");
 		request.setHttpMethod("GET");
 		request.addApiParameter("created_after", createAfter);

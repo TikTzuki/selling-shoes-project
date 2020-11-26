@@ -9,7 +9,6 @@ import api from './ultils/api'
 
 
 export default function App (){
-  const setThemeName = useContext(ThemeContext);
   const currentUser = useSelector(state => state.user);
 
   //componentDidMount
@@ -23,6 +22,6 @@ export default function App (){
   }, [currentUser])
 
   return currentUser!==null ? 
-  <LoggedRoute multiTheme={setThemeName} />:
-  <UnloggedRoute multiTheme={setThemeName}/>
+  <LoggedRoute/>:
+  <UnloggedRoute/>
 }

@@ -14,6 +14,8 @@ public class Configurer {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**");
+                //registry.addMapping("/**").allowedOrigins("http://localhost:8080/*");
+                //registry.addCorsMappings("/**").allowedOrigins("https://restful-api-spring-laz.herokuapp.com/*");
             }
         };
     }

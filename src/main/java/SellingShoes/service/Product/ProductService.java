@@ -40,6 +40,7 @@ public class ProductService {
 		LazopResponse response = new LazopResponse();
 		try {
 			response = client.execute(request, accessToken);
+			System.out.println(request.getApiParams());
 			Thread.sleep(10);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

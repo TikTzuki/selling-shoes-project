@@ -1,9 +1,10 @@
 import {IconButton, makeStyles} from '@material-ui/core'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Brightness2Icon from '@material-ui/icons/Brightness2';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 import Brightness5Icon from '@material-ui/icons/Brightness5';
 import { themeMap } from '../../ultils/themes/base';
+import { ThemeContext } from '../../ultils/themes/ThemeProvider';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -39,19 +40,19 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(3, 0, 2),
     },
   }));
-  
+
 function ThemeSwitchIcon(props) {
     const classes = useStyles();
-    const { multiTheme } = props;
-    const setThemeName = multiTheme;
-    const [currentTheme, setCurrentTheme] = useState(localStorage.getItem('theme')!==undefined? localStorage.getItem('theme'): 'darkTheme');
+    const setThemeName = useContext(ThemeContext);
+    const [currentTheme, setCurrentTheme] = useState(Boolean(localStorage.getItem('theme'))? localStorage.getItem('theme'): 'darkTheme');
     const nameList = Object.keys(themeMap);
 
     const handleChangeTheme = (event) => {
         //setThemeName(nameList[nameList.indexOf(currentTheme) === nameList.length - 1 ? 0 : nameList.indexOf(currentTheme) + 1]);
-        setCurrentTheme(nameList[nameList.indexOf(currentTheme) === nameList.length - 1 ? 0 : nameList.indexOf(currentTheme) + 1]);
-        setThemeName(currentTheme);
-        localStorage.setItem('theme' ,currentTheme);
+        let nextTheme = nameList[nameList.indexOf(currentTheme) === nameList.length - 1 ? 0 : nameList.indexOf(currentTheme) + 1];
+        setCurrentTheme(nextTheme);
+        setThemeName(nextTheme);
+        localStorage.setItem('theme' , nextTheme);
     }
 
     return (

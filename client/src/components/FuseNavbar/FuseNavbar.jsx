@@ -2,6 +2,7 @@ import React, { useState, Fragment } from "react";
 import { Link, withRouter } from "react-router-dom";
 import {
   AppBar,
+  Avatar,
   Button,
   Collapse,
   CssBaseline,
@@ -20,6 +21,9 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import compose from "recompose/compose";
 import Header from "../Header";
 import ThemeSwitchIcon from "../ThemeSwitchIcon/ThemeSwitchIcon";
+import { useSelector } from "react-redux";
+import { deepPurple } from "@material-ui/core/colors";
+import AvatarComp from "../AvatarComp/AvatarComp";
 const drawerWidth = 240;
 
 const styles = (theme) => {
@@ -59,7 +63,28 @@ const styles = (theme) => {
     buttonNav: {
       width: "100%",
       textTransform: "none"
-    }
+    },
+    userAvatar: {
+      flex: "2 2 100% "
+    },
+    logoApp: {
+      flex: "1 1 100%"
+    },
+    purple: {
+      color: theme.palette.getContrastText(deepPurple[500]),
+      backgroundColor: deepPurple[500],
+    },
+    small: {
+      width: theme.spacing(3),
+      height: theme.spacing(3),
+      fontSize: 'small',
+      textTransform: 'uppercase',
+      textDecoration: 'none'
+    },
+    large: {
+      width: theme.spacing(7),
+      height: theme.spacing(7),
+    },
   }
 };
 
@@ -110,12 +135,11 @@ const listMenu = [
 const FuseNavbar = (props) => {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [dropSwitcher, setDropSwitcher] = useState(-1)
+  const user = useSelector(state => state.user)
   const {
     classes,
     location: { pathname },
-    children,
-    writers,
-    multiTheme
+    children
   } = props;
   const handleDropdown = (event) => {
     setDropSwitcher((dropSwitcher === event.currentTarget.getAttribute("drop-index") ? -1 : event.currentTarget.getAttribute("drop-index")));
@@ -174,10 +198,17 @@ const FuseNavbar = (props) => {
             >
               < Menu />
             </IconButton>
-            <Typography variant="h6" color="inherit" noWrap>
-              Writers Blog
+            <Typography className={classes.logoApp} variant="h6" color="inherit" noWrap>
+              Override project
             </Typography>
-            <ThemeSwitchIcon multiTheme={multiTheme} />
+            <Grid container alignItems="center" justify="flex-end">
+              <Grid item alignContent="flex-end">
+                <AvatarComp />
+              </Grid>
+              <Grid item >
+                <ThemeSwitchIcon/>
+              </Grid>
+            </Grid>
           </Toolbar>
         </AppBar>
         <Hidden mdUp>
