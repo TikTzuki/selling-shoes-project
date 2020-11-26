@@ -47,4 +47,29 @@ public class LazOrderService {
 		}
 		return response.getBody();
 	}
+public String readyToShip(
+			String accessToken, String lazUrl, String appkey, String appSecret,
+			String orderItemIds,
+			String deliveryType,
+			String shipmentProvider,
+			String trackingNumber) {
+		LazopClient client = new LazopClient(lazUrl, appkey, appSecret);
+		LazopRequest request = new LazopRequest();
+		request.setApiName("/order/rts");
+		request.setHttpMethod("POST");
+		request.addApiParameter("order_item_ids", orderItemIds);
+		request.addApiParameter("delivery_type", deliveryType);
+		request.addApiParameter("shipment_provider", shipmentProvider);
+		request.addApiParameter("tracking_number", trackingNumber);
+		LazopResponse response = new LazopResponse();
+		try {
+			response = client.execute(request, "50000700b26glHjApYRuee0JyehQ9srdBiiT4k16aa6531xudjHPixdyXUw4gkPc");
+			System.out.println(response.getBody());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println(e);
+		}
+		return response.getBody();
+	}
 }

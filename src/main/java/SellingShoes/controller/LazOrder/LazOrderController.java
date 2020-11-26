@@ -50,5 +50,14 @@ public class LazOrderController {
 	//SetInvoiceNumber
 	
 	//SetStatusToReadyToShip 
-	
+	@RequestMapping(method = RequestMethod.POST, value="/order/rts")
+	public ResponseEntity<String> lazorderRts(
+			@RequestParam(name ="order_item_ids", required=false) String orderItemIds,
+			@RequestParam(name ="delivery_type", required=false, defaultValue="dropship") String deliveryType,
+			@RequestParam(name ="shipment_provider", required=false) String shipmentProvider,
+			@RequestParam(name ="tracking_number", required=false) String trackingNumber)	
+	{
+		String responseJson = lazOrderService.readyToShip(accessToken, lazUrl, appkey, appSecret, orderItemIds, deliveryType, shipmentProvider, trackingNumber);
+		return new ResponseEntity<String>(responseJson, HttpStatus.OK);
+	}
 }
