@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types';
-import { AppBar, Box, Button, Grid, Input, makeStyles, Tab, Tabs, TextField, Typography } from '@material-ui/core'
+import { AppBar, Box, Button, FormHelperText, Grid, Input, makeStyles, Tab, Tabs, TextField, Typography } from '@material-ui/core'
 import { Field, Form, Formik, useFormik, withFormik } from 'formik';
 import { compose } from 'recompose';
 import * as Yup from 'yup';
@@ -51,25 +51,22 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const formikForm = {
-	mapPropsToValues: ()=>({
-		first_name: "bu",
-		last_name: "lon",
-		email: "chi Thien"
-	}),
-	validationSchema: Yup.object().shape({
-
-	}),
-	onSubmit: (values, {setSubmitting})=>{
-		alert(JSON.stringify(values, null, 2));
-    setSubmitting(false);
+const checkPassword=(password, oldPassword, newPassword, newPasswordConfirm)=>{
+	if( Boolean(oldPassword) && Boolean(newPassword) && Boolean(newPasswordConfirm) ){
+		if(password===oldPassword)
+		return 1
 	}
+	if( !Boolean(oldPassword) && !Boolean(newPassword) && !Boolean(newPasswordConfirm) ){
+		return 0
+	}
+	return -1
 }
 const UserPage = () => {
 	const classes = useStyles();
 	const [value, setValue] = React.useState(0);
 	const user = useSelector(state => state.user)
 	const [openModal, setOpenModal] = useState(false);
+	const [messageModal, setMessageModel] = useState('');
 	const dispatch = useDispatch()
 	const handleChange = (event, newValue) => {
 		setValue(newValue);
@@ -79,34 +76,69 @@ const UserPage = () => {
 		<AppBar position="static">
 			<Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
 				<Tab label="Thông tin tài khoản" {...a11yProps(0)} />
-				<Tab label="Item Two" {...a11yProps(1)} />
-				<Tab label="Item Three" {...a11yProps(2)} />
+				<Tab label="Thông tin..." {...a11yProps(1)} />
+				<Tab label="Thông tin..." {...a11yProps(2)} />
 			</Tabs>
 		</AppBar>
 		<TabPanel value={value} index={0}>
 			<Formik
 				initialValues={{
-					...user
+					...user,
+					oldPassword: '',
+					newPassword: '',
+					newPasswordConfirm: ''
 				}}
+				validationSchema={Yup.object().shape({
+					oldPassword: Yup.string(),
+					newPassword: Yup.string(),
+					newPasswordConfirm: Yup.string().test('match','Password khong khop', function(newPasswordConfirm){
+						return newPasswordConfirm === this.parent.newPassword;
+					})
+				})}
 				onSubmit={(values, actions) => {
-					async function updateUser(){
-						await axiosJsonServer.put(`/seller_account/${values.id}`, values)
+					let newInfo = {...values};
+
+					if(checkPassword(newInfo.password, newInfo.oldPassword, newInfo.newPassword, newInfo.newPasswordConfirm)===1){
+						//case change password
+						let newUser = {...values};
+						newUser.password = values.newPassword;
+						delete newUser.oldPassword;
+						delete newUser.newPassword;
+						delete newUser.newPasswordConfirm;
+						updateUser(newUser);
+					} else{
+						//case  not change password
+						if(checkPassword(newInfo.password, newInfo.oldPassword, newInfo.newPassword, newInfo.newPasswordConfirm)===0){
+							let newUser = {...values};
+							delete newUser.oldPassword;
+							delete newUser.newPassword;
+							delete newUser.newPasswordConfirm;
+						updateUser(newUser);
+						} else {
+							//case wrong password
+							setMessageModel('Sai mật khẩu')
+							setOpenModal(true);
+						}
+					}
+
+					async function updateUser(user){
+						await axiosJsonServer.put(`/seller_account/${user.id}`, user)
 						.then(res=>{
 							console.log(res);
+							setMessageModel('Sửa thành công')
 							setOpenModal(true);
 							localStorage.setItem('seller-account', JSON.stringify(res.data));
 						dispatch(updateUserAction(res.data));
 						});
 					}
-					updateUser();
-					actions.setSubmitting(false);
+					actions.resetForm();
+					actions.setSubmitting(true);
 				}}
 			>
 				{(props) => (
 					<Form onSubmit={props.handleSubmit} >
 						<Grid item xs={4}>
 							<Grid container>
-
 								<Field
 									id="first_name"
 									name="first_name"
@@ -148,15 +180,39 @@ const UserPage = () => {
 											{...field} />
 									} />
 								<Field
-									id="password"
-									name="password"
+									id="oldPassword"
+									name="oldPassword"
 									render={({ field }) =>
 										<TextField
 											className={classes.field}
 											fullWidth
-											label="Mật khẩu"
+											type="password"
+											label="Mật khẩu cũ"
 											{...field} />
 									} />
+								<Field
+									id="newPassword"
+									name="newPassword"
+									render={({ field }) =>
+										<TextField
+											className={classes.field}
+											fullWidth
+											type="password"
+											label="Mật khẩu mới"
+											{...field} />
+									} />
+									<Field
+									id="newPasswordConfirm"
+									name="newPasswordConfirm"
+									render={({ field }) =>
+										<TextField
+											className={classes.field}
+											fullWidth
+											type="password"
+											label="Nhập lại mật khẩu mới"
+											{...field} />
+									} />
+									{<FormHelperText error>{props.errors.newPasswordConfirm}</FormHelperText>}
 							</Grid>
 						</Grid>
 						<Button
@@ -168,12 +224,12 @@ const UserPage = () => {
 			</Formik>
 		</TabPanel>
 		<TabPanel value={value} index={1}>
-			Item Two
+			Thông tin...
         </TabPanel>
 		<TabPanel value={value} index={2}>
-			Item Three
+			Thông tin...
         </TabPanel>
-		<ConfirmModel title={'Sửa thành công'} message={'Sửa thành công'} open={openModal} onClose={()=>(setOpenModal(!openModal))} />
+		<ConfirmModel title={messageModal} message={messageModal} open={openModal} onClose={()=>(setOpenModal(!openModal))} />
 	</div>)
 }
 

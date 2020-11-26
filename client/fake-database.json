@@ -2,10 +2,24 @@
   "seller_account": [
     {
       "id": 1,
-      "first_name": "Long Long",
-      "last_name": "Tran Tran",
+      "first_name": "Long",
+      "last_name": "Tran",
       "phone_number": "0858267296",
       "email": "shenlong20119@gmail.com",
+      "password": "12345",
+      "laz_app_key": "ac",
+      "laz_app_secret": "asc",
+      "laz_access_token": "50000700b26glHjApYRuee0JyehQ9srdBiiT4k16aa6531xudjHPixdyXUw4gkPc",
+      "laz_access_expires": 30000,
+      "laz_refresh_token": "asdafeafea",
+      "laz_refresh_expires": 400000
+    },
+    {
+      "id": 2,
+      "first_name": "Tik",
+      "last_name": "Tok",
+      "phone_number": "0123456789",
+      "email": "tranphanthanhlong18@gmail.com",
       "password": "00ab1b7b6708904653086417f8fbcd12",
       "laz_app_key": "ac",
       "laz_app_secret": "asc",

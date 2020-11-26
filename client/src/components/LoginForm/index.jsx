@@ -88,7 +88,7 @@ const LoginForm = (props) => {
     let statement = loginWay === 'email' ?
       `email=${loginInfo.email}&password=${loginInfo.password}` :
       `phone_number=${loginInfo.phone_number}&password=${loginInfo.password}`;
-
+    
     axiosJsonServer.get(`/seller_account?${statement}`)
       .then((res) => {
         let user = res.data[0];
@@ -102,7 +102,7 @@ const LoginForm = (props) => {
         } else {
           console.log('unlogged')
         }
-      }).catch(e => { });
+      }).catch(e => {});
   }
 
   return (

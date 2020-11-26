@@ -10,7 +10,7 @@ export const signUp = (user)=>{
         payload: user,
     }
 }
-export const logOut = ()=>{
+export const logout = ()=>{
     return {
         type: "LOG_OUT"
     }

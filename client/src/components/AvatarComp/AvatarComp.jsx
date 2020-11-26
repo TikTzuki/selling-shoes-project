@@ -2,8 +2,9 @@ import { Avatar, Button, List, ListItem, Popover, Link } from '@material-ui/core
 import { deepPurple } from '@material-ui/core/colors';
 import { withStyles } from '@material-ui/styles';
 import React from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouteLink } from 'react-router-dom'
+import { logout } from '../../actions/user';
 
 const styles = (theme) => {
   console.log(theme);
@@ -46,6 +47,7 @@ const styles = (theme) => {
 const AvatarComp = (props) => {
   const {classes} = props
   const user = useSelector(state => state.user)
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
 	const handleClick = (event) => {
@@ -56,6 +58,11 @@ const AvatarComp = (props) => {
 		setAnchorEl(null);
 	};
 
+  const handleLogout = ()=>{
+    localStorage.removeItem("seller-account");
+    dispatch(logout());
+    window.location.reload();
+  }
 	const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
   
@@ -95,7 +102,9 @@ const AvatarComp = (props) => {
             style={{padding: '.5rem 2rem', textTransform: 'none', textDecoration: 'none'}}
             to='/'
             color="secondary"
-            fullWidth component={RouteLink}>
+            fullWidth
+            component={RouteLink}
+            onClick={handleLogout}>
 							Đăng xuất
 						</Link>
 					</ListItem>

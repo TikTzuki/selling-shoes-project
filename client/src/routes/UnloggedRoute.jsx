@@ -9,9 +9,9 @@ const UnloggedRoute = (props) => {
     return (
         <BrowserRouter>
         <SwitchRoute>
-          <Route exact path="/" render={()=> <LoginPage multiTheme={props.multiTheme}/>}/>
-          <Route exact path="/sign-up" render={ () => <SignUpPage/>}/>
-          <Route component={NotFound}/>
+          <Route exact path="/" component={LoginPage}/>
+          <Route exact path="/sign-up" component={SignUpPage}/>
+          <Route component={LoginPage}/>
         </SwitchRoute>
       </BrowserRouter>
     )
