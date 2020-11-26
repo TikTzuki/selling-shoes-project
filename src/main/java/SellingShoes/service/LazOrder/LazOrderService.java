@@ -24,20 +24,17 @@ public class LazOrderService {
 			String sortBy) {
 		LazopClient client = new LazopClient(lazUrl, appkey, appSecret);
 		LazopRequest request = new LazopRequest();
-		System.out.println("------------------------------");
-		System.out.println(createAfter);
-		System.out.println("------------------------------");
 		request.setApiName("/orders/get");
 		request.setHttpMethod("GET");
 		request.addApiParameter("created_after", createAfter);
-		//request.addApiParameter("created_before", createBefore);
+		request.addApiParameter("created_before", createBefore);
 		request.addApiParameter("status", status);
-		//request.addApiParameter("update_before", updateBefore);
-		//request.addApiParameter("update_after", updateAfter);
-		//request.addApiParameter("limit", limit);
-		//request.addApiParameter("offset", offset);
-		//request.addApiParameter("sort_direction", sortDirection);
-		//request.addApiParameter("sort_by", sortBy);
+		request.addApiParameter("update_before", updateBefore);
+		request.addApiParameter("update_after", updateAfter);
+		request.addApiParameter("limit", limit);
+		request.addApiParameter("offset", offset);
+		request.addApiParameter("sort_direction", sortDirection);
+		request.addApiParameter("sort_by", sortBy);
 		LazopResponse response = new LazopResponse();
 		try {
 			response = client.execute(request, accessToken);
