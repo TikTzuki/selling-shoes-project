@@ -4,7 +4,7 @@ const Sku = (props) => {
   const {sku} = props;
   return (
     <div>
-      {sku.size} {sku.color}
+      
     </div>
   )
 }

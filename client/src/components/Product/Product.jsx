@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Field, Form, Formik, withFormik } from 'formik';
-import { Button, Grid, makeStyles, TextareaAutosize, TextField, Typography } from '@material-ui/core';
+import { Button, Grid, Input, makeStyles, TextareaAutosize, TextField, Typography } from '@material-ui/core';
 import Skus from './Skus/Skus';
 import Sku from './Skus/Sku/Sku';
 
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const Product = (props) => {
-  const { product_id } = props;
+  //const { product_id } = props;
   const classes = useStyles();
   const [colors, setColors] = useState(['vang', 'xanh']);
   const [sizes, setSizes] = useState(['EU:39', 'EU:40']);
@@ -42,7 +42,6 @@ const Product = (props) => {
   const tempp = () => {
     let arr = []
     for (let size of sizes) {
-      
       for (let color of colors) {
         arr.push({
           Images: [],
@@ -134,6 +133,36 @@ const Product = (props) => {
               />
             </Grid>
             <Grid item xs={12}>
+              {colors.map((color, index)=>{
+                return <Input name="color" key={index} value={color}
+                onChange={(e)=>{
+                  let colorsTemp = colors;
+                  colorsTemp[index]=e.target.value;
+                  if(colorsTemp[index])
+                  setColors([...colorsTemp]);
+                }}/>
+              })}
+              <Button onClick={(e)=>{
+                //let colorsTemp = colors;
+                let flag = true;
+                //colorsTemp.push('');
+                for(let el of colors){
+                  if(el===''){                  
+                    flag=false;
+                  }
+                }
+                if(flag){
+                  setColors([...colors, ''])
+                }
+              }}>
+                  Them mau
+              </Button>
+              {sizes.map((size, index)=>{
+                return <Input name="size" value={size}/>
+              })}
+              <Button onClick={(e)=>{}}>Them mau</Button>
+
+              <Input name=""/>
               {sizes.map((size, index) => {
                 return colors.map((color, index) => {
                   return <Sku sku={{ size: size, color: color }} />
