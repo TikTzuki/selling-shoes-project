@@ -34,8 +34,8 @@ public class LazOrderController {
 				@RequestParam(name = "status", required = false, defaultValue = "pending") String status,
 				@RequestParam(name="offset", required = false) String offset,
 				@RequestParam(name = "limit", required = false) String limit,
-				@RequestParam(name="sort_direction", required = false, defaultValue = "DECS") String sortDirection,
-				@RequestParam(name="sort_by", required = false, defaultValue = "update_at") String sortBy){
+				@RequestParam(name="sort_direction", required = false) String sortDirection,
+				@RequestParam(name="sort_by", required = false) String sortBy){
 		
 		String responseJson = lazOrderService.getOrders(accessToken, lazUrl, appkey, appSecret, createBefore, createAfter, updateBefore, updateAfter, status, offset, limit, sortDirection, sortBy);
 		return new ResponseEntity<String>(responseJson, HttpStatus.OK);

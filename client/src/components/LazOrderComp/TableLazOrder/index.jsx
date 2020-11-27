@@ -81,14 +81,12 @@ const TableLazOrder = (props) => {
 	const {status} = props;
 
 	const fectchOrders = async ()=>{
-		await axiosHeroku.get(`/laz-orders/get?status=${status}${searchLazOrder.statement}`).then(res=>{
-			console.log(`/laz-orders/get?status=${status}${searchLazOrder.statement}`);
-			//let orders = res.data.data.orders;
-			console.log(res.data);
-			console.log(" mounted table laz order  ");
+		await axiosHeroku.get(`/laz-orders/get?status=${encodeURI(`${status}${searchLazOrder.statement}`)}`).then(res=>{
+			console.log(`/laz-orders/get?status=${encodeURI(`${status}${searchLazOrder.statement}`)}`);
+			let orders = res.data.data.orders;
 			console.log(searchLazOrder);
-			//console.log(orders);
-			//setRows(orders);
+			console.log(orders);
+			setRows(orders);
 		})
 	}
 

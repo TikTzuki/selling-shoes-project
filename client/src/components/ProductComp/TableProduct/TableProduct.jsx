@@ -79,16 +79,17 @@ function TableProduct(props) {
 	//const products = useSelector(state => state.productsState.products);
 	let products = [];
 	const fetchProducts = async () => {
-		await axiosHeroku.get(`/products/get?filter=${filter}${searchProduct.statement}`)
+		await axiosHeroku.get(`/products/get?filter=${encodeURI(`${filter}${searchProduct.statement}`)}`)
 			.then(res => {
-				console.log(`/products/get?filter=${filter}${searchProduct.statement}`);
+				console.log(`/products/get?filter=${encodeURI(`${filter}${searchProduct.statement}`)}`);
 				let products = Boolean(res.data.data.products) ? res.data.data.products : [] ;
+				console.log(res.data.data);
 				let rowsTemp = [];
 				products.forEach(function(product, index){
 					product.skus.forEach((sku, index)=>{
 						let row = {};
 						row.name= product.attributes.name;
-						row.item_id = product.item_id;
+						row.productId = product.item_id;
 						row.sellerSku = sku.SellerSku;
 						row.image = sku.Images[0];
 						row.price = sku.price;
