@@ -6,7 +6,6 @@ import AuthorizationPage from '../pages/AuthorizationPage/AuthorizationPage'
 import NotFound from '../pages/ErrorsPage/NotFound'
 import HomePage from '../pages/HomePage/HomePage'
 import LazOrderPage from '../pages/LazOrderPage/LazOrderPage'
-import LocalBillDetailsPage from '../pages/LocalBillDetailsPage/LocalBillDetailsPage'
 import LocalBillPage from '../pages/LocalBillPage/LocalBillPage'
 import LocalNewpublishBillPage from '../pages/LocalNewpublishBillPage/LocalNewpublishBillPage'
 import ProductNewpublishPage from '../pages/ProductNewpublishPage/ProductNewpublishPage'
@@ -31,7 +30,6 @@ const LoggedRoute = (props) => {
             <Route exact path="/laz-order" render={() => <LazOrderPage/>} />
             <Route exact path="/order-local/newpublish" render={() => <LocalNewpublishBillPage/>} />
             <Route exact path="/order-local/portal" render={() => <LocalBillPage/>} />
-            <Route path="/order-local/detail/:bill_id" component={LocalBillDetailsPage} />
             <Route exact path="/analysis" render={() => <AnalysisPage/>} />
             <Route exact path="/authorization" render={() => <AuthorizationPage/>} />
             <Route component={NotFound} />

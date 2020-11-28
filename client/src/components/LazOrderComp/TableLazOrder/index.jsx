@@ -79,7 +79,6 @@ const TableLazOrder = (props) => {
 	const [rows, setRows] = useState([]);
 	const searchLazOrder = useSelector(state => state.searchLazOrder);
 	const {status} = props;
-
 	const fectchOrders = async ()=>{
 		await axiosHeroku.get(`/laz-orders/get?status=${status}${searchLazOrder.statement}`).then(res=>{
 			console.log(`/laz-orders/get?status=${status}${searchLazOrder.statement}`);
@@ -90,7 +89,6 @@ const TableLazOrder = (props) => {
 			setRows(orders);
 		})
 	}
-
 	const handleRequestSort = (event, property) => {
 		const isAsc = (orderBy === property && order === 'asc');
 		setOrder(isAsc ? 'desc' : 'asc');
@@ -117,7 +115,6 @@ const TableLazOrder = (props) => {
 		}
 		setSelected(newSelected);
 	};
-
 	const handleExpand = (event, name) => {
 		const expandedIndex = expandedRow.indexOf(name);
 		let newExpandRow = [];
@@ -147,16 +144,12 @@ const TableLazOrder = (props) => {
 
 	const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
-	//Did mount 1 lan
 	useEffect(() => {
 		fectchOrders();
 	}, [])
-
-	//Did update searchLazOrder
 	useEffect(() => {
 		fectchOrders();
 	}, [searchLazOrder])
-
 	return (
 		<div className={classes.root}>
 			<Paper className={classes.paper}>
