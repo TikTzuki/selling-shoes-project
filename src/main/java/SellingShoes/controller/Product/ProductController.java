@@ -136,7 +136,7 @@ public class ProductController {
 	}
 	
 	//remove Product
-	@RequestMapping(method = RequestMethod.GET, value="/product/remove")
+	@RequestMapping(method = RequestMethod.POST, value="/product/remove")
 	public ResponseEntity<String> productRemove(			
 			@RequestParam(name="seller_sku_list",required = false) String seller_sku_list
 			){
@@ -145,7 +145,7 @@ public class ProductController {
 	}
 	
 	//update Product
-	@RequestMapping(method = RequestMethod.GET, value="/product/update")
+	@RequestMapping(method = RequestMethod.POST, value="/product/update")
 	public ResponseEntity<String> productUpdate(			
 			@RequestParam(name="payload",required = false) String payload
 			){
