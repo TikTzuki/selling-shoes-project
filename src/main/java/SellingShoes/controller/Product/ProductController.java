@@ -49,10 +49,11 @@ public class ProductController {
 	public ProductController(StorageService storageService) {
 		this.storageService = storageService;
 	}
+	//get Products
 	@RequestMapping(method = RequestMethod.GET, value="/get")
 	public ResponseEntity<String> productsGet(
 			//@RequestHeader("access_token") String accessToken,
-			@RequestParam(name = "filter", required = false, defaultValue = "inactive") String filter,
+			@RequestParam(name = "filter", required = false, defaultValue = "live") String filter,
 			@RequestParam(name="search", required = false) String search,
 			@RequestParam(name="create_after", required = false, defaultValue ="2020-11-19T00:00:00+0800") String createAfter,
 			@RequestParam(name="create_before", required = false) String createBefore,
@@ -70,12 +71,15 @@ public class ProductController {
 	//Create Product
 	@RequestMapping(method = RequestMethod.POST, value="/create", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<String> productCreate(
-			@RequestBody ProductForm productForm
+			@RequestBody ProductForm productForm,
+			@RequestParam(name = "payload", required = false) String payload
 			){
-			System.out.println("--------------------");
-			System.out.println(productForm);
-			System.out.println("--------------------");
-
+		
+		System.out.println("--------------------");
+		System.out.println(productForm);
+		System.out.println("--------------------");
+		/*String responseJson =*/ productService.createProduct(accessToken, lazUrl, appkey, appSecret, payload);
+		//return new ResponseEntity<String>(responseJson,HttpStatus.OK);
 		return new ResponseEntity<String>(productForm.toString(), HttpStatus.OK);
 	}
 	
@@ -101,10 +105,8 @@ public class ProductController {
 				path -> MvcUriComponentsBuilder.fromMethodName(ProductController.class,
 						"serveFile", path.getFileName().toString()).build().toUri().toString())
 				.collect(Collectors.toList()));
-
 		return "uploadForm";
-	}
-	
+	}	
 	@RequestMapping(method=RequestMethod.GET, value="/files/{filename:.+}")
 	@ResponseBody
 	public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
@@ -112,4 +114,43 @@ public class ProductController {
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
 				"attachment; filename=\"" + file.getFilename() + "\"").body(file);
 	}
+	
+	// get Brands
+	@RequestMapping(method = RequestMethod.GET, value="/brands/get")
+	public ResponseEntity<String> brandsGet(			
+			@RequestParam(name="offset", required = false, defaultValue = "0") String offset,
+			@RequestParam(name="limit",required = false, defaultValue = "10") String limit
+			){
+		String responseJson = productService.getBrands(accessToken, lazUrl, appkey, appSecret,offset, limit);
+		return new ResponseEntity<String>(responseJson,HttpStatus.OK);
+	}
+	
+	// get Product Item
+	@RequestMapping(method = RequestMethod.GET, value="/product/item/get")
+	public ResponseEntity<String> productItemGet(			
+			@RequestParam(name="item_id", required = false) String item_id,
+			@RequestParam(name="seller_sku",required = false) String seller_sku
+			){
+		String responseJson = productService.getProductItem(accessToken, lazUrl, appkey, appSecret,item_id, seller_sku);
+		return new ResponseEntity<String>(responseJson,HttpStatus.OK);
+	}
+	
+	//remove Product
+	@RequestMapping(method = RequestMethod.POST, value="/product/remove")
+	public ResponseEntity<String> productRemove(			
+			@RequestParam(name="seller_sku_list",required = false) String seller_sku_list
+			){
+		String responseJson = productService.removeProduct(accessToken, lazUrl, appkey, appSecret,seller_sku_list);
+		return new ResponseEntity<String>(responseJson,HttpStatus.OK);
+	}
+	
+	//update Product
+	@RequestMapping(method = RequestMethod.POST, value="/product/update")
+	public ResponseEntity<String> productUpdate(			
+			@RequestParam(name="payload",required = false) String payload
+			){
+		String responseJson = productService.updateProduct(accessToken, lazUrl, appkey, appSecret,payload);
+		return new ResponseEntity<String>(responseJson,HttpStatus.OK);
+	}
+		
 }
