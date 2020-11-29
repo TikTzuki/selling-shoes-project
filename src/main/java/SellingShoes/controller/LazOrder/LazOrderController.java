@@ -57,7 +57,24 @@ public class LazOrderController {
 		return new ResponseEntity<String>(responseJson, HttpStatus.OK);
 	}
 	
+	//GetOrderItems: Lay nhieu order item tu 1 order
+	@RequestMapping(method = RequestMethod.GET, value="/order/items/get")
+	public ResponseEntity<String> lazOrderItemsGet(
+			@RequestParam(name= "order_id", required= false) String orderId){
+		String responseJson= lazOrderService.getOrderItems(accessToken, lazUrl, appkey, appSecret, orderId); 
+		return new ResponseEntity<String>(responseJson, HttpStatus.OK);
+		
+	}
 	
+	//SeStatusToCanceled
+	@RequestMapping(method = RequestMethod.POST, value="/cancel")
+	public ResponseEntity<String> lazOrderCacel(
+			@RequestParam(name="reason_detail", required =false) String reasonDetail,
+			@RequestParam(name="reason_id", required =false) String reasonId,
+			@RequestParam(name="order_item_id", required =false) String orderItemId){
+		String responseJson = lazOrderService.canceled(accessToken, lazUrl, appkey, appSecret, reasonDetail, reasonId, orderItemId);
+		return new ResponseEntity<String>(responseJson, HttpStatus.OK);
+	}
 	//SetInvoiceNumber
 	
 	//SetStatusToReadyToShip 

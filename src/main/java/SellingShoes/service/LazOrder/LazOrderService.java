@@ -58,7 +58,7 @@ public String getMultipleOrderItems(
 		request.addApiParameter("order_ids", orderIds);
 		LazopResponse response = new LazopResponse();
 		try {
-			response = client.execute(request, "50000700b26glHjApYRuee0JyehQ9srdBiiT4k16aa6531xudjHPixdyXUw4gkPc");
+			response = client.execute(request, accessToken);
 			System.out.println(response.getBody());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -68,7 +68,7 @@ public String getMultipleOrderItems(
 		return response.getBody();
 	}
 	
-	public String getOrder(
+public String getOrder(
 			String accessToken, String lazUrl, String appkey, String appSecret,
 			String orderId) {
 		LazopClient client = new LazopClient(lazUrl, appkey, appSecret);
@@ -78,7 +78,51 @@ public String getMultipleOrderItems(
 		request.addApiParameter("order_id", orderId);
 		LazopResponse response = new LazopResponse();
 		try {
-			response = client.execute(request, "50000700b26glHjApYRuee0JyehQ9srdBiiT4k16aa6531xudjHPixdyXUw4gkPc");
+			response = client.execute(request, accessToken);
+			System.out.println(response.getBody());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println(e);
+		}
+		return response.getBody();
+	}
+
+public String getOrderItems(
+			String accessToken, String lazUrl, String appkey, String appSecret,
+			String orderId) {
+		LazopClient client = new LazopClient(lazUrl, appkey, appSecret);
+		LazopRequest request = new LazopRequest();
+		request.setApiName("/order/items/get");
+		request.setHttpMethod("GET");
+		request.addApiParameter("order_id", orderId);
+		LazopResponse response = new LazopResponse();
+		try {
+			response = client.execute(request, accessToken);
+			System.out.println(response.getBody());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println(e);
+		}
+		return response.getBody();
+	}
+	
+	public String canceled(
+			String accessToken, String lazUrl, String appkey, String appSecret,
+			String reasonDetail,
+			String reasonId,
+			String orderItemId) {
+		LazopClient client = new LazopClient(lazUrl, appkey, appSecret);
+		LazopRequest request = new LazopRequest();
+		request.setApiName("/order/cancel");
+		request.setHttpMethod("POST");
+		request.addApiParameter("reason_detail", reasonDetail);
+		request.addApiParameter("reason_id", reasonId);
+		request.addApiParameter("order_item_id", orderItemId);
+		LazopResponse response = new LazopResponse();
+		try {
+			response = client.execute(request, accessToken);
 			System.out.println(response.getBody());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -104,7 +148,7 @@ public String readyToShip(
 		request.addApiParameter("tracking_number", trackingNumber);
 		LazopResponse response = new LazopResponse();
 		try {
-			response = client.execute(request, "50000700b26glHjApYRuee0JyehQ9srdBiiT4k16aa6531xudjHPixdyXUw4gkPc");
+			response = client.execute(request, accessToken);
 			System.out.println(response.getBody());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
