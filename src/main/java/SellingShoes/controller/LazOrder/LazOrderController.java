@@ -45,7 +45,15 @@ public class LazOrderController {
 	@RequestMapping(method = RequestMethod.GET, value="/items/get")
 	public ResponseEntity<String> lazOrdersItemsGet(
 			@RequestParam(name ="order_ids", required =false ) String orderIds){
-		String responseJson = lazOrderService.GetMultipleOrderItems(accessToken, lazUrl, appkey, appSecret, orderIds);
+		String responseJson = lazOrderService.getMultipleOrderItems(accessToken, lazUrl, appkey, appSecret, orderIds);
+		return new ResponseEntity<String>(responseJson, HttpStatus.OK);
+	}
+	
+	//GetOrder : Lay 1 order
+	@RequestMapping(method = RequestMethod.GET, value="/order/get")
+	public ResponseEntity<String> lazOrderGet(
+			@RequestParam(name ="order_id", required =false ) String orderId){
+		String responseJson = lazOrderService.getOrder(accessToken, lazUrl, appkey, appSecret, orderId);
 		return new ResponseEntity<String>(responseJson, HttpStatus.OK);
 	}
 	
@@ -53,7 +61,7 @@ public class LazOrderController {
 	//SetInvoiceNumber
 	
 	//SetStatusToReadyToShip 
-	@RequestMapping(method = RequestMethod.POST, value="/order/rts")
+	@RequestMapping(method = RequestMethod.POST, value="/rts")
 	public ResponseEntity<String> lazorderRts(
 			@RequestParam(name ="order_item_ids", required=false) String orderItemIds,
 			@RequestParam(name ="delivery_type", required=false, defaultValue="dropship") String deliveryType,
