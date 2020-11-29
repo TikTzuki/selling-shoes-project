@@ -47,6 +47,27 @@ public class LazOrderService {
 		}
 		return response.getBody();
 	}
+
+public String GetMultipleOrderItems(
+			String accessToken, String lazUrl, String appkey, String appSecret,
+			String orderIds) {
+		LazopClient client = new LazopClient(lazUrl, appkey, appSecret);
+		LazopRequest request = new LazopRequest();
+		request.setApiName("/items/get");
+		request.setHttpMethod("GET");
+		request.addApiParameter("order_ids", orderIds);
+		LazopResponse response = new LazopResponse();
+		try {
+			response = client.execute(request, "50000700b26glHjApYRuee0JyehQ9srdBiiT4k16aa6531xudjHPixdyXUw4gkPc");
+			System.out.println(response.getBody());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println(e);
+		}
+		return response.getBody();
+	}
+
 public String readyToShip(
 			String accessToken, String lazUrl, String appkey, String appSecret,
 			String orderItemIds,

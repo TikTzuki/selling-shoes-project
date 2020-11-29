@@ -43,9 +43,12 @@ public class LazOrderController {
 	
 	//GetMultipleOrderItems: Lay nhieu order item tu nhieu order
 	@RequestMapping(method = RequestMethod.GET, value="/items/get")
-	public ResponseEntity<String> lazOrdersItemsGet(@RequestParam("order_ids") String orderIds){
-		return new ResponseEntity<String>("", HttpStatus.OK);
+	public ResponseEntity<String> lazOrdersItemsGet(
+			@RequestParam(name ="order_ids", required =false ) String orderIds){
+		String responseJson = lazOrderService.GetMultipleOrderItems(accessToken, lazUrl, appkey, appSecret, orderIds);
+		return new ResponseEntity<String>(responseJson, HttpStatus.OK);
 	}
+	
 	
 	//SetInvoiceNumber
 	
