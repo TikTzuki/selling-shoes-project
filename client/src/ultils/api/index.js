@@ -8,8 +8,8 @@ const axiosSpring = axios.create({
 })
 
 const axiosHeroku = axios.create({
-  baseURL: `http://localhost:8080`
-  //baseURL: `https://restful-api-spring-laz.herokuapp.com`,
+  //baseURL: `http://localhost:8080`
+  baseURL: `https://restful-api-spring-laz.herokuapp.com`,
 })
 export {
   axiosJsonServer,

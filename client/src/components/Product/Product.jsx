@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import { Field, Form, Formik, withFormik } from 'formik';
-import { Button, Grid, Input, makeStyles, TextareaAutosize, TextField, Typography } from '@material-ui/core';
+import { Button, Divider, FormControl, FormHelperText, Grid, Input, makeStyles, MenuItem, Select, TextareaAutosize, TextField, Typography } from '@material-ui/core';
 import Skus from './Skus/Skus';
 import Sku from './Skus/Sku/Sku';
+import * as Yup from 'yup';
+import UploadFile from './UploadFile';
+import ImageThumb from './UploadFile';
 
 const useStyles = makeStyles((theme) => ({
   textFieldMd: {
@@ -18,35 +21,126 @@ const useStyles = makeStyles((theme) => ({
   },
   textPackage: {
     marginRight: theme.spacing(2)
+  },
+  inputSize: {
+    margin: theme.spacing(1),
+    minWidth: 100,
+  },
+  inputColor: {
+    maxWidth: 120,
+    margin: `5px`
+  },
+  imagesContainer: {
+    width: `100%`,
+    height: theme.spacing(20),
+    border: `1px solid ${theme.palette.secondary.light}`
+  },
+  imagesContainerTitle: {
+    height: theme.spacing(3),
+    color: theme.palette.secondary.contrastText,
+    backgroundColor: theme.palette.secondary.light,
+    paddingLeft: theme.spacing(4)
+  },
+  imageInput: {
+    width: `100%`,
+    height: `100%`,
+    zIndex: 10,
+    opacity: 0,
+    cursor: `pointer`
+  },
+  imageInputWarp: {
+    position: 'relative',
+    border: `2px dashed ${theme.palette.secondary.light}`,
+    width: theme.spacing(12),
+    height: theme.spacing(12),
+    cursor: `pointer`,
+    margin: theme.spacing(1),
+    zIndex: 0
+  },
+  imageThumb: {
+    top: 0,
+    left: 0,
+    zIndex: 1,
+    width: `100%`,
+    height: `100%`,
+    position: `absolute`,
+    left: 0
   }
 }))
+
+
+const schema = Yup.object().shape({
+  attributes: Yup.object({
+    name: Yup.string().required(`Không được bỏ trống tên sản phẩm`),
+    brand: Yup.string().required('Khong duoc de trong nhan hieu'),
+    description: Yup.string().required('Khong duoc de trong mo ta')
+  }),
+  skus: Yup.array().of(Yup.object().shape({
+    color_family: Yup.string().required('Khong duoc de trong mau')
+  })),
+  package_length: Yup.number('Phai là số').required('Khong duoc de trong chieu dai'),
+  package_height: Yup.number('Phai là số').required('Khong duoc de trong chieu cao'),
+  package_width: Yup.number('Phai là số').required('Khong duoc de trong chieu rong'),
+  package_weight: Yup.number('Phải là số').required('Khong duoc de trong can nang')
+})
 
 const Product = (props) => {
   //const { product_id } = props;
   const classes = useStyles();
-  const [colors, setColors] = useState(['vang', 'xanh']);
+  const [colors, setColors] = useState([
+    {color_family: 'vang', files: [""]},
+    {color_family: 'xanh', files: [""]}
+  ]);
   const [sizes, setSizes] = useState(['EU:39', 'EU:40']);
+  const [files, setFiles] = useState({xanh:[""]});
 
-  const temp = ({
-    Images: [],
-    SellerSku: "",
-    color_family: "",
-    quantity: "",
-    size: "",
-    price: 0,
-    package_length: "",
-    package_height: "",
-    package_width: "",
-    package_weight: ""
-  });
-  const tempp = () => {
+  const handleAddColor = (e) => {
+    let flag = true;
+    for (let color of colors) {
+      if (color.color_family === '') {
+        flag = false;
+      }
+    }
+    if (flag) {
+      setColors([...colors, {color_family: '', file: [""]} ])
+    }
+  }
+  const handleAddSize = (e) => {
+    let flag = true;
+    for (let el of sizes) {
+      if (el === '') {
+        flag = false;
+      }
+    }
+    if (flag) {
+      setSizes([...sizes, ''])
+    }
+  }
+  const handleChangeSize = (event, index) => {
+    let sizesTemp = sizes;
+    sizesTemp[index] = event.target.value;
+    if (!Boolean(sizesTemp[index])) {
+      sizesTemp.splice(index, 1);
+    }
+    setSizes([...sizesTemp]);
+  }
+  const handleChangeColor = (event, index) => {
+    let colorsTemp = colors;
+    colorsTemp[index].color_family = event.target.value;
+    if (!Boolean(colorsTemp[index].color_family)) {
+      colorsTemp.splice(index, 1);
+    }
+    setColors([...colorsTemp]);
+
+  }
+  const getSkus = () => {
     let arr = []
     for (let size of sizes) {
       for (let color of colors) {
         arr.push({
           Images: [],
           SellerSku: "",
-          color_family: color,
+          color_family: color.color_family,
           quantity: "",
           size: size,
           price: 0,
@@ -66,36 +160,44 @@ const Product = (props) => {
       description: "",
     },
     primary_category: "",
-    skus: [
-      tempp()
-    ],
+    skus: getSkus(),
     package_length: "",
     package_height: "",
     package_width: "",
     package_weight: ""
   };
+  const handleChangeFile = (e, indexColor, indexFile)=>{
+    let colorsTemp = colors;
+    colorsTemp[indexColor].files[indexFile]=e.target.files[0];
+    setColors([...colorsTemp]);
+  }
+
   return (
     <Formik
       initialValues={initValues}
+      initialTouched={initValues}
+      validationSchema={schema}
       onSubmit={(values, action) => {
         console.log(values)
         action.setSubmitting(false)
       }}
-    >
-      {(props) => (
+      render={({ errors, touched }) => (
+
         <Form onSubmit={props.handleSubmit}>
           <Grid container justify="flex-start">
             <Grid item xs={6}>
               <Field
                 name='attributes.name'
-                render={({ field }) =>
+                render={({ field }) => <>
                   <TextField
                     label="Tên sản phẩm"
                     className={classes.textFieldMd}
                     fullWidth
                     {...field} />
-                }
-              />
+                  {errors.attributes && errors.attributes.name && touched.attributes.name ?
+                    <FormHelperText>{errors.attributes.name}</FormHelperText> : ''}</>
+                } />
+
               <Field
                 name='primary_category'
                 render={({ field }) =>
@@ -109,13 +211,18 @@ const Product = (props) => {
               <Field
                 name='attributes.brand'
                 render={({ field }) =>
-                  <TextField
-                    label="Thương hiệu"
-                    className={classes.textFieldMd}
-                    fullWidth
-                    {...field} />
+                  <>
+                    <TextField
+                      label="Thương hiệu"
+                      className={classes.textFieldMd}
+                      fullWidth
+                      {...field} />
+                    {errors.attributes && errors.attributes.brand && touched.attributes.brand ?
+                      <FormHelperText>{errors.attributes.brand}</FormHelperText> : ''}
+                  </>
                 }
               />
+              { }
             </Grid>
             <Grid item xs={10}>
               <Typography variant="h6" color="textSecondary" className={classes.textAreaLabel}>
@@ -131,45 +238,66 @@ const Product = (props) => {
                     {...field} />
                 }
               />
+
             </Grid>
-            <Grid item xs={12}>
-              {colors.map((color, index)=>{
-                return <Input name="color" key={index} value={color}
-                onChange={(e)=>{
-                  let colorsTemp = colors;
-                  colorsTemp[index]=e.target.value;
-                  if(colorsTemp[index])
-                  setColors([...colorsTemp]);
-                }}/>
+
+            <Grid item xs={12} style={{ marginTop: 20 }}>
+              {colors.map((color, indexColor) => {
+                return (
+                  <Grid item xs={10} >
+                    <TextField name="color" key={indexColor} value={color.color_family}
+                      onChange={(e) => handleChangeColor(e, indexColor)}
+                      className={classes.inputColor} />
+                    <div className={classes.imagesContainer} >
+                      <Typography
+                        className={classes.imagesContainerTitle}
+                        fullWidth
+                        variant="subtitle2">
+                        Hình ảnh màu {color.color_family}
+                      </Typography>
+                      <div className={classes.imageInputWarp}>
+                        {color.files.map((file, indexFile) => (
+                          <>
+                          <input 
+                          onChange={(e)=>handleChangeFile(e,indexColor,indexFile)}
+                          className={classes.imageInput}
+                          type="file" />
+                          {file && <><ImageThumb className={classes.imageThumb} image={file}/>
+                          <Typography variant="caption">{`.${ file.type.slice(file.type.indexOf(`/`)+1)}-${(file.size/1000)}kB`}</Typography> </>}
+                          </>
+                        ))}
+                      </div>
+                    </div>
+                  </Grid>
+                )
               })}
-              <Button onClick={(e)=>{
-                //let colorsTemp = colors;
-                let flag = true;
-                //colorsTemp.push('');
-                for(let el of colors){
-                  if(el===''){                  
-                    flag=false;
-                  }
-                }
-                if(flag){
-                  setColors([...colors, ''])
-                }
-              }}>
-                  Them mau
+              <Button variant="outlined" size="small" onClick={handleAddColor}>
+                Thêm màu
               </Button>
-              {sizes.map((size, index)=>{
-                return <Input name="size" value={size}/>
-              })}
-              <Button onClick={(e)=>{}}>Them mau</Button>
-
-              <Input name=""/>
-              {sizes.map((size, index) => {
-                return colors.map((color, index) => {
-                  return <Sku sku={{ size: size, color: color }} />
-                })
-              })}
-
             </Grid>
+
+            <Grid item xs={12} style={{ marginTop: 20 }}>
+              {sizes.map((size, index) => {
+                return <Select
+                  labelId={`select-size-${index}`}
+                  id={`select-size-${index}`}
+                  value={size}
+                  className={classes.inputSize}
+                  onChange={(e) => handleChangeSize(e, index)}>
+                  <MenuItem value={''}>Xóa</MenuItem>
+                  <MenuItem value={'EU:37'}>37</MenuItem>
+                  <MenuItem value={'EU:38'}>38</MenuItem>
+                  <MenuItem value={'EU:39'}>39</MenuItem>
+                  <MenuItem value={'EU:40'}>40</MenuItem>
+                  <MenuItem value={'EU:41'}>41</MenuItem>
+                  <MenuItem value={'EU:42'}>42</MenuItem>
+                </Select>
+              })}
+              <Button variant="outlined" size="small" onClick={handleAddSize}>
+                Thêm size
+              </Button>
+            </Grid>
+
             <Grid item xs={12}>
               <Field
                 name='package_length'
@@ -178,8 +306,8 @@ const Product = (props) => {
                     label="Chiều dài (cm)"
                     className={classes.textPackage}
                     {...field} />
-                }
-              />
+                }/>
+
               <Field
                 name='package_height'
                 render={({ field }) =>
@@ -187,8 +315,8 @@ const Product = (props) => {
                     label="Chiều cao (cm)"
                     className={classes.textPackage}
                     {...field} />
-                }
-              />
+                }/>
+
               <Field
                 name='package_width'
                 render={({ field }) =>
@@ -196,8 +324,8 @@ const Product = (props) => {
                     label="Chiều ngang (cm)"
                     className={classes.textPackage}
                     {...field} />
-                }
-              />
+                }/>
+
               <Field
                 name='package_weight'
                 render={({ field }) =>
@@ -207,16 +335,25 @@ const Product = (props) => {
                     {...field} />
                 }
               />
+              {touched.package_length && <FormHelperText>{errors.package_length}</FormHelperText>}
+              {touched.package_height && <FormHelperText>{errors.package_height}</FormHelperText>}
+              {touched.package_width && <FormHelperText>{errors.package_width}</FormHelperText>}
+              {touched.package_weight && <FormHelperText>{errors.package_weight}</FormHelperText>}
             </Grid>
-            <Grid item>
-              <Button type="submit">
+
+          </Grid>
+          <Divider light variant="middle" />
+          <Grid style={{ padding: 10 }} container justify="flex-end">
+            <Grid item xs="8" />
+            <Grid item xs="4">
+              <Button variant="contained" color="primary" type="submit">
                 Submit
-              </Button>
+                </Button>
             </Grid>
           </Grid>
         </Form>
       )}
-    </Formik>
+    />
   )
 }
 
