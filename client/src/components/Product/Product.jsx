@@ -6,6 +6,8 @@ import Sku from './Skus/Sku/Sku';
 import * as Yup from 'yup';
 import UploadFile from './UploadFile';
 import ImageThumb from './UploadFile';
+import { Autorenew, FullscreenExit } from '@material-ui/icons';
+import objectToXml from '../../ultils/jsonToXml';
 
 const useStyles = makeStyles((theme) => ({
   textFieldMd: {
@@ -32,8 +34,10 @@ const useStyles = makeStyles((theme) => ({
   },
   imagesContainer: {
     width: `100%`,
-    height: theme.spacing(20),
-    border: `1px solid ${theme.palette.secondary.light}`
+    height: theme.spacing(22),
+    border: `1px solid ${theme.palette.secondary.light}`,
+    display: `flex`,
+    alignContents: `flex-start`
   },
   imagesContainerTitle: {
     height: theme.spacing(3),
@@ -51,8 +55,8 @@ const useStyles = makeStyles((theme) => ({
   imageInputWarp: {
     position: 'relative',
     border: `2px dashed ${theme.palette.secondary.light}`,
-    width: theme.spacing(12),
-    height: theme.spacing(12),
+    width: theme.spacing(14),
+    height: theme.spacing(14),
     cursor: `pointer`,
     margin: theme.spacing(1),
     zIndex: 0
@@ -88,11 +92,11 @@ const Product = (props) => {
   //const { product_id } = props;
   const classes = useStyles();
   const [colors, setColors] = useState([
-    {color_family: 'vang', files: [""]},
-    {color_family: 'xanh', files: [""]}
+    { color_family: 'vang', files: [""] },
+    { color_family: 'xanh', files: [""] }
   ]);
   const [sizes, setSizes] = useState(['EU:39', 'EU:40']);
-  const [files, setFiles] = useState({xanh:[""]});
+  const [files, setFiles] = useState({ xanh: [""] });
 
   const handleAddColor = (e) => {
     let flag = true;
@@ -102,7 +106,7 @@ const Product = (props) => {
       }
     }
     if (flag) {
-      setColors([...colors, {color_family: '', file: [""]} ])
+      setColors([...colors, { color_family: '', file: [""] }])
     }
   }
   const handleAddSize = (e) => {
@@ -166,9 +170,13 @@ const Product = (props) => {
     package_width: "",
     package_weight: ""
   };
-  const handleChangeFile = (e, indexColor, indexFile)=>{
+  const handleChangeFile = (e, indexColor, indexFile) => {
     let colorsTemp = colors;
-    colorsTemp[indexColor].files[indexFile]=e.target.files[0];
+    colorsTemp[indexColor].files[indexFile] = e.target.files[0];
+    if(colorsTemp[indexColor].files.length<6){
+      colorsTemp[indexColor].files.push("");
+    }
+    console.log(colorsTemp);
     setColors([...colorsTemp]);
   }
 
@@ -178,12 +186,13 @@ const Product = (props) => {
       initialTouched={initValues}
       validationSchema={schema}
       onSubmit={(values, action) => {
-        console.log(values)
-        action.setSubmitting(false)
+        console.log(values);
+        alert(JSON.stringify(values,null, 2));
+        //action.setSubmitting(false)
       }}
-      render={({ errors, touched }) => (
-
-        <Form onSubmit={props.handleSubmit}>
+      render={({ errors, touched, handleSubmit }) => (
+        <Form onSubmit={handleSubmit}>
+          {console.log(props)}
           <Grid container justify="flex-start">
             <Grid item xs={6}>
               <Field
@@ -248,26 +257,26 @@ const Product = (props) => {
                     <TextField name="color" key={indexColor} value={color.color_family}
                       onChange={(e) => handleChangeColor(e, indexColor)}
                       className={classes.inputColor} />
-                    <div className={classes.imagesContainer} >
-                      <Typography
+                    <Grid container className={classes.imagesContainer} >
+                      <Grid
                         className={classes.imagesContainerTitle}
                         fullWidth
+                        item
+                        xs={12}
                         variant="subtitle2">
                         Hình ảnh màu {color.color_family}
-                      </Typography>
-                      <div className={classes.imageInputWarp}>
-                        {color.files.map((file, indexFile) => (
-                          <>
-                          <input 
-                          onChange={(e)=>handleChangeFile(e,indexColor,indexFile)}
-                          className={classes.imageInput}
-                          type="file" />
-                          {file && <><ImageThumb className={classes.imageThumb} image={file}/>
-                          <Typography variant="caption">{`.${ file.type.slice(file.type.indexOf(`/`)+1)}-${(file.size/1000)}kB`}</Typography> </>}
-                          </>
-                        ))}
-                      </div>
-                    </div>
+                      </Grid>
+                      {color.files.map((file, indexFile) => (
+                        <Grid item className={classes.imageInputWarp}>
+                          <input
+                            onChange={(e) => handleChangeFile(e, indexColor, indexFile)}
+                            className={classes.imageInput}
+                            type="file" />
+                          {file && <><ImageThumb className={classes.imageThumb} image={file} />
+                            <Typography variant="caption"  gutterBottom>{`.${file.type.slice(file.type.indexOf(`/`) + 1)}-${(file.size / 1000)}kB`}</Typography> </>}
+                        </Grid>
+                      ))}
+                    </Grid>
                   </Grid>
                 )
               })}
@@ -306,7 +315,7 @@ const Product = (props) => {
                     label="Chiều dài (cm)"
                     className={classes.textPackage}
                     {...field} />
-                }/>
+                } />
 
               <Field
                 name='package_height'
@@ -315,7 +324,7 @@ const Product = (props) => {
                     label="Chiều cao (cm)"
                     className={classes.textPackage}
                     {...field} />
-                }/>
+                } />
 
               <Field
                 name='package_width'
@@ -324,7 +333,7 @@ const Product = (props) => {
                     label="Chiều ngang (cm)"
                     className={classes.textPackage}
                     {...field} />
-                }/>
+                } />
 
               <Field
                 name='package_weight'
