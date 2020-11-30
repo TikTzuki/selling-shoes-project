@@ -1,6 +1,10 @@
 package SellingShoes.controller.Product;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import SellingShoes.com.storage.StorageProperties;
 import SellingShoes.com.storage.StorageService;
 import SellingShoes.service.Product.ProductService;
 
@@ -93,9 +98,20 @@ public class ProductController {
 			for(MultipartFile file : files) {
 				storageService.store(file);
 				redirectAttributes.addFlashAttribute("message", "You successfully uploaded " + file.getOriginalFilename() + "!");
-			}
+			};
+			
+		Path rootLocation = Paths.get(new StorageProperties().getLocation());
+		String responseJson = "";
+		List<String> uris = new ArrayList<String>();
+		uris = storageService.loadAll().map(
+					path -> path.getFileName().toString())
+					.collect(Collectors.toList());
 		
-		return new ResponseEntity<String>("{ [{\"image\": \"link of image\"},{\"image\": \"link of image\"}]}", HttpStatus.OK);
+		for(String uri: uris) {
+			responseJson += productService.uploadImage(accessToken, lazUrl, appkey, appSecret, rootLocation.toAbsolutePath()+"\\"+uri)+",";
+		}
+		responseJson.substring(0,responseJson.length()-1);
+		return new ResponseEntity<String>("{images:["+responseJson+"]}", HttpStatus.OK);
 	}
 	
 	//Test form
@@ -106,8 +122,10 @@ public class ProductController {
 				path -> MvcUriComponentsBuilder.fromMethodName(ProductController.class,
 						"serveFile", path.getFileName().toString()).build().toUri().toString())
 				.collect(Collectors.toList()));
+		
 		return "uploadForm";
 	}	
+
 	@RequestMapping(method=RequestMethod.GET, value="/files/{filename:.+}")
 	@ResponseBody
 	public ResponseEntity<Resource> serveFile(@PathVariable String filename) {

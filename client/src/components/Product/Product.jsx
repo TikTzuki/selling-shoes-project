@@ -8,6 +8,7 @@ import UploadFile from './UploadFile';
 import ImageThumb from './UploadFile';
 import { Autorenew, FullscreenExit } from '@material-ui/icons';
 import objectToXml from '../../ultils/jsonToXml';
+import { axiosSpring } from '../../ultils/api';
 
 const useStyles = makeStyles((theme) => ({
   textFieldMd: {
@@ -186,13 +187,38 @@ const Product = (props) => {
       initialTouched={initValues}
       validationSchema={schema}
       onSubmit={(values, action) => {
-        console.log(values);
-        alert(JSON.stringify(values,null, 2));
+
+        const uploadImage = ()=>{
+          colors.forEach((color, index)=>{
+            let formData = new FormData();
+            color.files.forEach((file)=>{
+              if(file!==""){
+                formData.append("file", file);
+              }
+            })
+            
+            axiosSpring.post('/products/images/upload', formData)
+              .then((res)=>{console.log( res.data )})
+          })
+        }
+        uploadImage()
+        const setSkus = (colors, sizes)=>{
+          let arr = [];
+          for(let color of colors){
+            for(let size of sizes){
+              arr.push({})
+            }
+          }
+          return {
+
+          }
+        }
+
+        //alert(JSON.stringify(values,null, 2));
         //action.setSubmitting(false)
       }}
       render={({ errors, touched, handleSubmit }) => (
         <Form onSubmit={handleSubmit}>
-          {console.log(props)}
           <Grid container justify="flex-start">
             <Grid item xs={6}>
               <Field
@@ -254,7 +280,7 @@ const Product = (props) => {
               {colors.map((color, indexColor) => {
                 return (
                   <Grid item xs={10} >
-                    <TextField name="color" key={indexColor} value={color.color_family}
+                    <TextField key={indexColor} value={color.color_family}
                       onChange={(e) => handleChangeColor(e, indexColor)}
                       className={classes.inputColor} />
                     <Grid container className={classes.imagesContainer} >

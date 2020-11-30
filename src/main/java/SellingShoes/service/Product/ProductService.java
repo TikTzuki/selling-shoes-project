@@ -105,8 +105,7 @@ public class ProductService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return new String("upload image success");
-		
+		return response.getBody();
 	}
 	//get Brands
 	public String getBrands(String accessToken, String lazUrl, String appkey, String appSecret,			
