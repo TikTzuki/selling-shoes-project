@@ -1,0 +1,68 @@
+<!--50000701a14kkktpe9Gfu9mVye187e9438fEthyeVzHGx8upbNS1rnm3aP8joWGv-->
+<?xml version="1.0" encoding="UTF-8"?>
+          <Request>
+           <Product>
+            <PrimaryCategory> 6363</PrimaryCategory>
+            <SPUId></SPUId>
+            <AssociatedSku></AssociatedSku>           
+            <Attributes>
+             <name> aasdasd </name>
+             <short_description> klhjklh </short_description>
+             <brand> No Brand </brand>
+            </Attributes>
+            <Skus><sku>
+            <SellerSku>EU:40vang1606821467837</SellerSku>
+            <color_family> vang </color_family>
+            <size> EU:40 </size>
+            <price> 10000 </price>   
+            <quantity> 0 </quantity>
+            <package_length> 3 </package_length>                 
+            <package_height> 4 </package_height>                 
+            <package_weight>54</package_weight>                 
+            <package_width>34</package_width>
+            <Images>                     
+            <image> https://vn-live-02.slatic.net/p/5d1eb2aceaf93bd7d93aa6f00ff89ad0.png </image>      
+            </Images>
+            </sku><sku>
+            <SellerSku>EU:39vang1606821467837</SellerSku>
+            <color_family> vang </color_family>
+            <size> EU:39 </size>
+            <price> 30000 </price>   
+            <quantity> 0 </quantity>
+            <package_length> 3 </package_length>                 
+            <package_height> 4 </package_height>                 
+            <package_weight>54</package_weight>                 
+            <package_width>34</package_width>
+            <Images>                     
+            <image> https://vn-live-02.slatic.net/p/5d1eb2aceaf93bd7d93aa6f00ff89ad0.png </image>      
+            </Images>
+            </sku><sku>
+            <SellerSku>EU:40xanh1606821467837</SellerSku>
+            <color_family> xanh </color_family>
+            <size> EU:40 </size>
+            <price> 10000 </price>   
+            <quantity> 65 </quantity>
+            <package_length> 3 </package_length>                 
+            <package_height> 4 </package_height>                 
+            <package_weight>54</package_weight>                 
+            <package_width>34</package_width>
+            <Images>                     
+            <image> https://vn-live-02.slatic.net/p/5d1eb2aceaf93bd7d93aa6f00ff89ad0.png </image>      
+            </Images>
+            </sku><sku>
+            <SellerSku>EU:39xanh1606821467837</SellerSku>
+            <color_family> xanh </color_family>
+            <size> EU:39 </size>
+            <price> 10000 </price>   
+            <quantity> 0 </quantity>
+            <package_length> 3 </package_length>                 
+            <package_height> 4 </package_height>                 
+            <package_weight>54</package_weight>                 
+            <package_width>34</package_width>
+            <Images>                     
+            <image> https://vn-live-02.slatic.net/p/5d1eb2aceaf93bd7d93aa6f00ff89ad0.png </image>      
+            </Images>
+            </sku>
+            </Skus>
+           </Product>
+          </Request>

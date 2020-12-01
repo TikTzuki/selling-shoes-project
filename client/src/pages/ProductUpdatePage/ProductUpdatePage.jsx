@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom';
-import Product from '../../components/Product/Product';
+import ProductUpdate from '../../components/ProductUpdate/ProductUpdate';
 
 const ProductUpdatePage = (props) => {
     console.log(`props`);
@@ -9,7 +9,7 @@ const ProductUpdatePage = (props) => {
         <div>
             ProductUpdatePage
             {props.match.params.product_id}
-            <Product product_id={props.match.params.product_id} />
+            <ProductUpdate product_id={props.match.params.product_id} />
         </div>
     )
 }

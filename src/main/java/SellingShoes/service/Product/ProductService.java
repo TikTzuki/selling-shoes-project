@@ -1,7 +1,12 @@
 package SellingShoes.service.Product;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import SellingShoes.com.storage.StorageService;
+
+import java.nio.charset.StandardCharsets;
 
 import com.lazada.lazop.api.LazopClient;
 import com.lazada.lazop.api.LazopRequest;
@@ -10,7 +15,10 @@ import com.lazada.lazop.util.FileItem;
 
 @Service
 public class ProductService {
-	
+
+	@Autowired
+	private StorageService storageService;
+
 	//Get product
 	public String getProducts(String accessToken, String lazUrl, String appkey, String appSecret,
 			String filter,
@@ -59,35 +67,22 @@ public class ProductService {
 		//request.setHttpMethod("POST");
 		request.addApiParameter("payload", payload);
 		LazopResponse response = new LazopResponse();
+
+		System.out.println("---------res--------------");
+		String result = "";
 		try {
+			result = java.net.URLDecoder.decode(payload, StandardCharsets.UTF_8.name());
 			response = client.execute(request, accessToken);	
 			System.out.println(response.getBody());
 			Thread.sleep(10);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}		
-		return new String("create product success");
+		}
+		System.out.println("---------res--------------");
+
+		return response.getBody();
 	}
 	
-	/* Bien skus gan giong:
-	 	<Sku>
-			<SellerSku>api-create-test-1</SellerSku>
-			<color_family>Green</color_family>
-			<size>40</size>
-			<quantity>1</quantity>
-			<price>388.50</price>
-			<package_length>11</package_length>
-			<package_height>22</package_height>
-			<package_weight>33</package_weight>
-			<package_width>44</package_width>
-			<package_content>this is what's in the box</package_content>
-			<Images>
-				<Image>http://sg.s.alibaba.lzd.co/original/59046bec4d53e74f8ad38d19399205e6.jpg</Image>
-				<Image>http://sg.s.alibaba.lzd.co/original/179715d3de39a1918b19eec3279dd482.jpg</Image>
-			</Images>
-		</Sku>
-	 */
 	//Upload Image
 	public String uploadImage(String accessToken, String LazUrl, String appkey, String appSecret,
 			String file) {
@@ -104,6 +99,8 @@ public class ProductService {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			System.out.println("cleared storage file");
 		}
 		return response.getBody();
 	}
