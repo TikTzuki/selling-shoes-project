@@ -217,7 +217,7 @@ const TableLazOrder = (props) => {
 												<TableCell align="right">Sẵn sàng giao hàng/Huy</TableCell>
 											</TableRow>
 											{/* Table expanded */}
-											<ExpandRow open={expandedRow.includes(row.order_id)} order_id={row.order_id}/>
+											<ExpandRow style={{width: `100%`}} open={expandedRow.includes(row.order_id)} order_id={row.order_id}/>
 											{/*
 											<TableRow>
 												<TableCell style={{ padding: 0 }} colSpan={6}>

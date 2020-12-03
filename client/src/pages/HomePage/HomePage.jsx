@@ -4,6 +4,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { addNewHobby } from "../../actions/hobby";
+import LineChartCustom from "../../components/LineChartCustom/LineChartCustom";
 
 /* 
     <div className="flex h-screen">
@@ -38,7 +39,10 @@ export default function HomePage() {
         })}
         </Grid>
       </Grid>
+      <Grid xs={10}>
+      <LineChartCustom/>
+      </Grid>
     </Grid>
-
+    
   );
 }

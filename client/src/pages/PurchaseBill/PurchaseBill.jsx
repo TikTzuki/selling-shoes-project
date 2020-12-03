@@ -3,7 +3,7 @@ import React from 'react'
 const PurchaseBill = () => {
     return (
         <div>
-PurchaseBill
+Purchase bill developing...
         </div>
     )
 }

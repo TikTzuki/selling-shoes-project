@@ -1,9 +1,10 @@
 import React from 'react'
+import RecivedNoteComp from '../../components/RecivedNoteComp/RecivedNoteComp'
 
 const RecivedNotePage=()=>{
 
     return(<div>
-        Recived Note page
+        <RecivedNoteComp/>
     </div>)
 }
 
