@@ -76,6 +76,13 @@ public class LazOrderController {
 		return new ResponseEntity<String>(responseJson, HttpStatus.OK);
 	}
 	//SetInvoiceNumber
+	@RequestMapping(method = RequestMethod.POST, value="/invoice_number/set")
+	public ResponseEntity<String> invoiceNumberSet(
+			@RequestParam(name ="order_item_id", required = false) String orderItemId,
+			@RequestParam(name="invoice_number", required = false) String invoiceNumber){
+		String responseJson = lazOrderService.setInvoiceNumber(accessToken, lazUrl, appkey, appSecret, orderItemId, invoiceNumber);
+		return new ResponseEntity<String>(responseJson, HttpStatus.OK);
+	}
 	
 	//SetStatusToReadyToShip 
 	@RequestMapping(method = RequestMethod.POST, value="/rts")

@@ -9,9 +9,10 @@ const data = [
 ];
 
 const LineChartCustom = (props) => {
+  const {width, height, data} = props;
   console.log("props", props);
   return (
-    <LineChart width={500} height={200} data={data}>
+    <LineChart width={width} height={height} data={data}>
       <Line typ="monotone" dataKey="uv" stroke="#8884d8" />
       <CartesianGrid stroke="#000" strokeDasharray="5 5" />
       <XAxis dataKey="name"/>

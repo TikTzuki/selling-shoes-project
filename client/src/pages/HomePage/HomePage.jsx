@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { addNewHobby } from "../../actions/hobby";
 import LineChartCustom from "../../components/LineChartCustom/LineChartCustom";
+import { axiosHeroku } from "../../ultils/api";
 
 /* 
     <div className="flex h-screen">
@@ -14,35 +15,32 @@ import LineChartCustom from "../../components/LineChartCustom/LineChartCustom";
 const randomNumber = ()=> {
   return 1000+Math.random();
 }
+const data = [
+  {name: 'Page A', uv: 787, pv: 2400, amt: 2400},
+  {name: 'Page B', uv: 536, pv: 2400, amt: 2400},
+  {name: 'Page C', uv: 567, pv: 2400, amt: 2400},
+  {name: 'Page D', uv: 594, pv: 2400, amt: 2400},
+];
+
 export default function HomePage() {
-  const hobbyList = useSelector(state=>(state.hobby.list));
-  const dispatch = useDispatch();
-  console.log(hobbyList);
-  const handleAddHobbyClick = ()=>{
-    const newId = randomNumber();
-    const newHobby = {
-      id: newId,
-      title: `title ${newId}`,
-    }
-    dispatch(addNewHobby(newHobby));
+  const [PayoutStatus, setPayoutStatus] = useState(null);
+
+  const fecthPayoutStatus = async ()=>{
+    await axiosHeroku.get('/analysis/finance/payout/status/get')
+    .then(res=>{
+      console.log(res.data);
+      setPayoutStatus(res.data);
+    })
   }
   
+  useEffect(() => {
+
+    fecthPayoutStatus();
+  }, [])
+  
   return (
-    <Grid container direction="row">
-      <Grid item xs={4}>
-        <Button variant="contained" onClick={handleAddHobbyClick}>Random</Button>
-      </Grid>
-      <Grid item xs={8}>
-        <Grid container direction="column">
-        {hobbyList.map((hobby)=>{
-          return (<Typography key={hobby.id} >{hobby.title}</Typography>)
-        })}
-        </Grid>
-      </Grid>
       <Grid xs={10}>
-      <LineChartCustom/>
+      <LineChartCustom width={400} height={400} data={data}/>
       </Grid>
-    </Grid>
-    
   );
 }

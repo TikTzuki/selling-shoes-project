@@ -10,18 +10,10 @@ import com.lazada.lazop.util.ApiException;
 
 @Service
 public class LazOrderService {
-	
-	public String getOrders(
-			String accessToken, String lazUrl, String appkey, String appSecret,
-			String createBefore,
-			String createAfter,
-			String updateBefore,
-			String updateAfter,
-			String status,
-			String offset,
-			String limit,
-			String sortDirection,
-			String sortBy) {
+
+	public String getOrders(String accessToken, String lazUrl, String appkey, String appSecret, String createBefore,
+			String createAfter, String updateBefore, String updateAfter, String status, String offset, String limit,
+			String sortDirection, String sortBy) {
 		LazopClient client = new LazopClient(lazUrl, appkey, appSecret);
 		LazopRequest request = new LazopRequest();
 		request.setApiName("/orders/get");
@@ -48,8 +40,7 @@ public class LazOrderService {
 		return response.getBody();
 	}
 
-public String getMultipleOrderItems(
-			String accessToken, String lazUrl, String appkey, String appSecret,
+	public String getMultipleOrderItems(String accessToken, String lazUrl, String appkey, String appSecret,
 			String orderIds) {
 		LazopClient client = new LazopClient(lazUrl, appkey, appSecret);
 		LazopRequest request = new LazopRequest();
@@ -67,10 +58,8 @@ public String getMultipleOrderItems(
 		}
 		return response.getBody();
 	}
-	
-public String getOrder(
-			String accessToken, String lazUrl, String appkey, String appSecret,
-			String orderId) {
+
+	public String getOrder(String accessToken, String lazUrl, String appkey, String appSecret, String orderId) {
 		LazopClient client = new LazopClient(lazUrl, appkey, appSecret);
 		LazopRequest request = new LazopRequest();
 		request.setApiName("/order/get");
@@ -88,9 +77,7 @@ public String getOrder(
 		return response.getBody();
 	}
 
-public String getOrderItems(
-			String accessToken, String lazUrl, String appkey, String appSecret,
-			String orderId) {
+	public String getOrderItems(String accessToken, String lazUrl, String appkey, String appSecret, String orderId) {
 		LazopClient client = new LazopClient(lazUrl, appkey, appSecret);
 		LazopRequest request = new LazopRequest();
 		request.setApiName("/order/items/get");
@@ -107,12 +94,9 @@ public String getOrderItems(
 		}
 		return response.getBody();
 	}
-	
-	public String canceled(
-			String accessToken, String lazUrl, String appkey, String appSecret,
-			String reasonDetail,
-			String reasonId,
-			String orderItemId) {
+
+	public String canceled(String accessToken, String lazUrl, String appkey, String appSecret, String reasonDetail,
+			String reasonId, String orderItemId) {
 		LazopClient client = new LazopClient(lazUrl, appkey, appSecret);
 		LazopRequest request = new LazopRequest();
 		request.setApiName("/order/cancel");
@@ -132,12 +116,8 @@ public String getOrderItems(
 		return response.getBody();
 	}
 
-public String readyToShip(
-			String accessToken, String lazUrl, String appkey, String appSecret,
-			String orderItemIds,
-			String deliveryType,
-			String shipmentProvider,
-			String trackingNumber) {
+	public String readyToShip(String accessToken, String lazUrl, String appkey, String appSecret, String orderItemIds,
+			String deliveryType, String shipmentProvider, String trackingNumber) {
 		LazopClient client = new LazopClient(lazUrl, appkey, appSecret);
 		LazopRequest request = new LazopRequest();
 		request.setApiName("/order/rts");
@@ -155,6 +135,26 @@ public String readyToShip(
 			e.printStackTrace();
 			System.out.println(e);
 		}
+		return response.getBody();
+	}
+
+	public String setInvoiceNumber(String accessToken, String lazUrl, String appkey, String appSecret,
+			String orderItemId, String invoiceNumber) {
+		LazopClient client = new LazopClient(lazUrl, appkey, appSecret);
+		LazopRequest request = new LazopRequest();
+		request.setApiName("/order/invoice_number/set");
+		request.addApiParameter("order_item_id", "123");
+		request.addApiParameter("invoice_number", "INV-20");
+		LazopResponse response = new LazopResponse();
+		try {
+			response = client.execute(request, accessToken);
+			System.out.println(response.getBody());
+			Thread.sleep(10);
+		} catch (ApiException | InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		return response.getBody();
 	}
 }
