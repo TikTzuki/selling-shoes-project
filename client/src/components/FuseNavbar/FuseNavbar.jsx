@@ -24,6 +24,8 @@ import ThemeSwitchIcon from "../ThemeSwitchIcon/ThemeSwitchIcon";
 import { useSelector } from "react-redux";
 import { deepPurple } from "@material-ui/core/colors";
 import AvatarComp from "../AvatarComp/AvatarComp";
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 const drawerWidth = 240;
 
 const styles = (theme) => {
@@ -85,6 +87,10 @@ const styles = (theme) => {
       width: theme.spacing(7),
       height: theme.spacing(7),
     },
+    expandIcon: {
+      opacity: 0.5,
+      marginLeft: theme.spacing(1)
+    }
   }
 };
 
@@ -124,7 +130,11 @@ const listMenu = [
   },
   {
     name: "Thống kê",
-    to: "/analysis"
+    to: "/analysis",
+    dropdownList: [
+      {name : "Sao kê tài khoản", to: "/payout-status"},
+      {name : "Thống kê doanh thu", to: "/revenue"}
+    ]
   },
   {
     name: "Lazada",
@@ -160,7 +170,7 @@ const FuseNavbar = (props) => {
             if ((menuItem.hasOwnProperty('dropdownList'))) {
               return (<div key={menuItem.name}>
                 <MenuItem component={Button} key={menuItem.name} disableRipple className={classes.buttonNav} drop-index={menuItem.name} variant="text" onClick={handleDropdown}>
-                  {menuItem.name}
+                  {menuItem.name} {dropSwitcher===menuItem.name ? <ExpandLessIcon fontSize="small" className={classes.expandIcon}/> : <ExpandMoreIcon fontSize="small" className={classes.expandIcon}/> }
                 </MenuItem>
                 <Collapse in={dropSwitcher === menuItem.name ? true : false} timeout={300}>
                   <MenuList>

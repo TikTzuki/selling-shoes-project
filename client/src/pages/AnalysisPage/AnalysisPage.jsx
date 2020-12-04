@@ -1,11 +1,26 @@
 import React from 'react'
-import DecodeBase64 from '../../ultils/base64ToPdf/decodeBase64'
+import AnalysisPayoutComp from '../../components/AnalysisPayoutComp/AnalysisPayoutComp'
+import AnalysisRevenueComp from '../../components/AnalysisRevenueComp/AnalysisRevenueComp';
 
-const AnalysisPage = ()=>{
+const AnalysisPage = (props) => {
+    const { match } = props;
 
-    return(<div>
-        Analysis
-    <div></div>
-    </div>)
+    return (
+        <div>
+            <AnalysisComp type={match.params.type} />
+        </div>)
 }
+
+const AnalysisComp = (props) => {
+    const { type } = props;
+    switch (type) {
+        case "payout-status":
+            return <AnalysisPayoutComp />
+        case "revenue":
+            return <AnalysisRevenueComp />
+        default:
+            return <AnalysisPayoutComp />
+    }
+}
+
 export default AnalysisPage

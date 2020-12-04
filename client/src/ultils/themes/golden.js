@@ -41,7 +41,7 @@ export const goldenTheme = createMuiTheme(
 				"light": "#ffcd38",
 				"main": "#ffc107",
 				"dark": "#b28704",
-				"contrastText": "#505050"
+				"contrastText": "#000000"
 			},
 			"secondary": {
 				"light": "#444f61",

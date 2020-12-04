@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
   imagesContainerTitle: {
     height: theme.spacing(3),
     color: theme.palette.secondary.contrastText,
-    backgroundColor: theme.palette.secondary.light,
+    backgroundColor: theme.palette.secondary.main,
     paddingLeft: theme.spacing(4)
   },
   imageInput: {
@@ -96,7 +96,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const schema1 = Yup.object().shape({
+const schema = Yup.object().shape({
   attributes: Yup.object({
     name: Yup.string().required(`Không được bỏ trống tên sản phẩm`),
     brand: Yup.string().required('Khong duoc de trong nhan hieu'),
@@ -110,7 +110,7 @@ const schema1 = Yup.object().shape({
   package_width: Yup.number('Phai là số').required('Khong duoc de trong chieu rong'),
   package_weight: Yup.number('Phải là số').required('Khong duoc de trong can nang')
 })
-const schema = Yup.object().shape({});
+const schema1 = Yup.object().shape({});
 const ProductCreate = (props) => {
   //const { product_id } = props;
   const classes = useStyles();
@@ -468,7 +468,7 @@ const ProductCreate = (props) => {
                         item
                         xs={12}
                         variant="subtitle2">
-                        Hình ảnh màu {color.color_family}
+                        <Typography> Hình ảnh màu {color.color_family} </Typography> 
                       </Grid>
                       {color.images.map((file, indexFile) => (
                         <Grid item className={classes.imageInputWarp}>

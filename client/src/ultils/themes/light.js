@@ -48,7 +48,7 @@ export const lightTheme = createMuiTheme(
             "light": grey[600],
             "main": grey[700], //f50057
             "dark": grey[800],
-            "contrastText": "#3D3D3D"
+            "contrastText": "#ffffff"
           },
           "error": {
             "light": "#e57373",

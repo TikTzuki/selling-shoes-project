@@ -47,7 +47,7 @@ export const darkTheme = createMuiTheme(
             "light": "#FFFF50",
             "main": "#fddb3a",
             "dark": "#E6C222",
-            "contrastText": "#41444b"
+            "contrastText": "#000000"
           },
           "error": {
             "light": "#e57373",

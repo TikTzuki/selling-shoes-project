@@ -14,7 +14,7 @@ import ProductPage from '../pages/ProductPage/ProductPage'
 import ProductUpdatePage from '../pages/ProductUpdatePage/ProductUpdatePage'
 import PurchaseBill from '../pages/PurchaseBill'
 import PurchaseOrder from '../pages/PurchaseOrder/'
-import RecivedNotePage from '../pages/RecivedNotePage/'
+import ReceivingSlipPage from '../pages/ReceivingSlipPage/ReceivingSlipPage'
 import UserPage from '../pages/UserPage/UserPage'
 
 const LoggedRoute = (props) => {
@@ -24,7 +24,7 @@ const LoggedRoute = (props) => {
           <SwitchRoute>
             <Route exact path="/" component={HomePage} />
             <Route exact path="/warehouse/purchase-order/portal" component={PurchaseOrder} />
-            <Route exact path="/warehouse/grn/portal" component={RecivedNotePage} />
+            <Route exact path="/warehouse/grn/portal" component={ReceivingSlipPage} />
             <Route exact path="/warehouse/bill/portal" component={PurchaseBill} />
             <Route exact path="/product/portal" component={ProductPage} />
             <Route exact path="/product/newpublish" component={ProductNewpublishPage} />
@@ -33,7 +33,7 @@ const LoggedRoute = (props) => {
             <Route exact path="/order-local/newpublish" component={LocalNewpublishBillPage} />
             <Route exact path="/order-local/portal" component={LocalBillPage} />
             <Route exact path="/order-local/detail/:bill_id" component={LocalBillDetailsPage} />
-            <Route exact path="/analysis" component={AnalysisPage} />
+            <Route exact path="/analysis/:type" component={AnalysisPage} />
             <Route exact path="/authorization" component={AuthorizationPage} />
             <Route exact path="/my-account" component={UserPage} />
             <Route component={NotFound} />
