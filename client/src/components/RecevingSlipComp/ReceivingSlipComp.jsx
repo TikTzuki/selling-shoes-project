@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import ReceivingSlipForm from './ReceivingSlipForm/ReceivingSlipForm';
-import TableProduct from './TableProduct/TableProduct'
+import ReceivingSlipTable from './RecevingSlipTable/ReceivingSlipTable';
 
 const ReceivingSlipComp = () => {
   const [products, setProducts] = useState([])
   
   return (
     <div>
-    <ReceivingSlipForm productsSelected={products}/>
-    <TableProduct productsSelected={products}/>
+    <ReceivingSlipForm/>
+    <ReceivingSlipTable/>
     </div>
   )
 }

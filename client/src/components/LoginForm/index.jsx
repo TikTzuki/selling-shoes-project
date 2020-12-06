@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
 
 const LoginForm = (props) => {
   const classes = useStyles();
-  const {values} = props;
+  const { values } = props;
   const currentUser = useSelector(state => state.user);
   const [currentWay, setCurrentWay] = useState('email');
 
@@ -88,7 +88,7 @@ const LoginForm = (props) => {
     let statement = loginWay === 'email' ?
       `email=${loginInfo.email}&password=${loginInfo.password}` :
       `phone_number=${loginInfo.phone_number}&password=${loginInfo.password}`;
-    
+
     axiosJsonServer.get(`/seller_account?${statement}`)
       .then((res) => {
         let user = res.data[0];
@@ -102,7 +102,7 @@ const LoginForm = (props) => {
         } else {
           console.log('unlogged')
         }
-      }).catch(e => {});
+      }).catch(e => { });
   }
 
   return (
@@ -188,22 +188,22 @@ const LoginForm = (props) => {
           >
             Sign In
               </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link to="#" component={RouterLink} variant="body2">
-                Forgot password?
-                  </Link>
-            </Grid>
-            <Grid item>
-              <Link component={RouterLink} to="/sign-up" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
-          <Box mt={5}>
-            <Copyright />
-          </Box>
         </Form>
+        <Grid container>
+          <Grid item xs>
+            <Link style={{color: `#fff`}} to="#" component={RouterLink} color="primary">
+              Forgot password?
+                  </Link>
+          </Grid>
+          <Grid item>
+            <Link style={{color: `#fff`}} component={RouterLink} to="/sign-up" >
+              {"Don't have an account? Sign Up"}
+            </Link>
+          </Grid>
+        </Grid>
+        <Box mt={5}>
+          <Copyright />
+        </Box>
       </div>
     </Grid>
   )

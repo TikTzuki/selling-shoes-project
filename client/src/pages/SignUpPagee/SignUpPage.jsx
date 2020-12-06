@@ -9,6 +9,7 @@ import {
 	Input,
 	InputLabel,
 	Link,
+	makeStyles,
 	MenuItem,
 	Paper,
 	Select,
@@ -22,8 +23,9 @@ import { compose } from 'recompose'
 import * as Yup from 'yup'
 import axios from 'axios'
 import { axiosJsonServer } from '../../ultils/api';
+import {Link as RouteLink} from 'react-router-dom';
 
-const styles = (theme) => {
+const useStyles = makeStyles((theme) => {
 	return {
 		paper: {
 			padding: '20px 15px',
@@ -31,9 +33,19 @@ const styles = (theme) => {
 		},
 		submit: {
 			backgroundColor: theme.palette.primary.main,
+		},
+		signUpBackground: {
+			backgroundImage: 'url(https://source.unsplash.com/random)',
+			backgroundRepeat: 'no-repeat',
+			backgroundColor:
+				theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+			backgroundSize: 'cover',
+			backgroundPosition: 'center',
+			zIndex: '0',
+			height: `100vh`,
 		}
 	}
-}
+})
 const formikForm = {
 	mapPropsToValues() { // Init form field
 		return {
@@ -41,7 +53,13 @@ const formikForm = {
 			last_name: '',
 			phone_number: '',
 			email: '',
-			password: ''
+			password: '',
+			laz_app_key: "",
+      laz_app_secret: "",
+      laz_access_token: "",
+      laz_access_expires: null,
+      laz_refresh_token: "",
+      laz_refresh_expires: null
 		}
 	},
 	validationSchema: Yup.object().shape({
@@ -63,36 +81,57 @@ const formikForm = {
 	}),
 }
 function SignUpPage(props) {
-	const { classes, values, handleChange, errors, setFieldValue, multitheme } = props;
+	const classes = useStyles();
+	const { values, handleChange, errors, setFieldValue, multitheme } = props;
 	const handleSubmit = () => {
 		let data = {
 			first_name: 'tik',
 			last_name: 'tok',
 			phone_number: '098093507894',
 			email: 'hahaha',
-			password: 'hehehehe'
+			password: 'hehehehe',
+			laz_app_key: "",
+      laz_app_secret: "",
+      laz_access_token: "",
+      laz_access_expires: null,
+      laz_refresh_token: "",
+      laz_refresh_expires: null
 		}
-		axiosJsonServer.post('seller_account', data)
-		.then(res=>{console.log(res.data)})
+		console.log(values);
+		//axiosJsonServer.post('seller_account', data)
+		//.then(res=>{console.log(res.data)})
 	}
-
+/*
 	return (
-		<Grid container justify='center' alignContent='center'>
+		<Grid container justify='center' alignContent='center' className={classes.signUpBackground}>
 			<Grid item xs={6} md={4}>
 				<Paper elevation={4} className={classes.paper}>
 					<Typography variant="headline" gutterBottom>
-						Signup
+						Đăng ký
           </Typography>
+
 					<Form onSubmit={handleSubmit}>
-						<FormControl fullWidth margin='normal' error={errors.username}>
-							<InputLabel>Username</InputLabel>
+
+						<FormControl margin='normal' error={errors.first_name}>
+							<InputLabel>Họ</InputLabel>
 							<Field
-								name='username'
+								name='first_name'
 								render={({ field }) => (
-									<Input fullWidth {...field} />
+									<Input f {...field} />
 								)} />
-							{props.touched.username && <FormHelperText>{errors.username}</FormHelperText>}
+							{props.touched.first_name && <FormHelperText>{errors.first_name}</FormHelperText>}
 						</FormControl>
+
+						<FormControl margin='normal' error={errors.last_name}>
+							<InputLabel>Tên</InputLabel>
+							<Field
+								name='last_name'
+								render={({ field }) => (
+									<Input {...field} />
+								)} />
+							{props.touched.last_name && <FormHelperText>{errors.last_name}</FormHelperText>}
+						</FormControl>
+
 						<FormControl fullWidth margin='normal' error={errors.email}>
 							<InputLabel>Email</InputLabel>
 							<Field
@@ -102,6 +141,17 @@ function SignUpPage(props) {
 								)} />
 							{props.touched.email && <FormHelperText>{errors.email}</FormHelperText>}
 						</FormControl>
+
+						<FormControl fullWidth margin='normal' error={errors.phone_number}>
+							<InputLabel>Phone number</InputLabel>
+							<Field
+								name='phone_number'
+								render={({ field }) => (
+									<Input fullWidth {...field} />
+								)} />
+							{props.touched.phone_number && <FormHelperText>{errors.phone_number}</FormHelperText>}
+						</FormControl>
+
 						<FormControl fullWidth margin='normal' error={errors.password}>
 							<InputLabel>Password</InputLabel>
 							<Field
@@ -111,51 +161,16 @@ function SignUpPage(props) {
 								)} />
 							{props.touched.password && <FormHelperText>{errors.password}</FormHelperText>}
 						</FormControl>
-						<FormControl >
-							<InputLabel htmlFor="upload-photo">File
-							<Input
-								style={{display:"none"}}
-								id="upload-photo"
-								name="fileInput"
-								type="file"
-								onChange={handleChange}
-								value={values.fileInput}
-							/>
-							<Button color="primary" variant="contained" component="span">
-								Upload button
-        			</Button>{" "}
-							</InputLabel>
-						</FormControl>
-						<FormControl>
-							<InputLabel>
-							File</InputLabel>
-							<Input
-							type="file"
-							name="file"
-							onChange={handleChange("file")}/>
-						</FormControl>
-						<FormControl fullWidth margin='normal'>
-							<InputLabel>Plan</InputLabel>
-							<Select
-								displayEmpty
-								name='plan'
-								value={values.plan}
-								onChange={handleChange}
-							>
-								<MenuItem value='basic'>Basic</MenuItem>
-								<MenuItem value='advance'>Advance</MenuItem>
-								<MenuItem value='enterprise'>Enterprise</MenuItem>
-							</Select>
-						</FormControl>
+
 						<Field
-							name='receiveLetter'
+							name='argee'
 							type='checkbox'
 							render={({ field }) => (
 								<FormControlLabel
 									control={
 										<Checkbox {...field} />
 									}
-									label='Receive new letter'
+									label='Đồng ý với đều khoản sử dụng?'
 								/>
 							)} />
 
@@ -168,11 +183,14 @@ function SignUpPage(props) {
 								Signup
               </Button>
 						</FormControl>
+
+						<Link to={`/`} component={RouteLink}> Đã có tài khoản? Đăng nhập. </Link>
+
 					</Form>
 				</Paper>
 			</Grid>
 		</Grid>
-	)
+	)*/return (<div style={{width: `100%`, height:`100vh`, backgroundColor:"#000"}}></div>)
 }
 
-export default compose(withFormik(formikForm), withStyles(styles))(SignUpPage)
+export default withFormik(formikForm)(SignUpPage)
