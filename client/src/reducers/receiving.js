@@ -14,7 +14,7 @@ const initialState = {
     name: "name of shoe",
     color: "Trang",
     size: "EU:40",
-    quanity_received: 10,
+    quantity_received: 10,
     quantity_approved: 10,
     price: 20000
   }]
@@ -29,12 +29,24 @@ const receivingReducer = (state=initialState, action)=>{
           ...action.payload
         ]
       }
-    case 'ADD_DETAILS':
+    case 'ADD_DETAIL':
+      let receivingDetailsTemp = [...state.receiving_details];
+      let isContain = false;
+      receivingDetailsTemp.forEach((receiDetail, index)=>{
+        if(action.payload[0].shop_sku===receiDetail.shop_sku){
+          receiDetail.quantity_received += action.payload[0].quantity_received;
+          receiDetail.quantity_approved += action.payload[0].quantity_approved;
+          isContain=true;
+        }
+      })
+      if(!isContain){
+        receivingDetailsTemp.push(action.payload[0]);
+      }
+      console.log(receivingDetailsTemp)
       return {
         ...state,
         receiving_details: [
-          ...state.receiving_details,
-          ...action.payload
+          ...receivingDetailsTemp
         ]
       }
     case 'MODIFY_DETAILS':

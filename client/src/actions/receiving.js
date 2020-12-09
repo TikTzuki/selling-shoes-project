@@ -5,10 +5,10 @@ export const modifyReceiving=(receiving)=>{
   }
 };
 
-export const addReceivingDetails=(receivingDetails)=>{
+export const addReceivingDetail=(receivingDetail)=>{
   return {
-    type: 'ADD_DETAILS',
-    payload: receivingDetails
+    type: 'ADD_DETAIL',
+    payload: receivingDetail
   }
 }
 

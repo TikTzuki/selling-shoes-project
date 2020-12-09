@@ -129,6 +129,14 @@ const listMenu = [
     ]
   },
   {
+    name: "Khách hàng",
+    to: "/customer",
+    dropdownList: [
+      {name: "Quản lý khách hàng", to: "/portal"},
+      {name: "Thêm khách hàng", to: "/newpublish"},
+    ]
+  },
+  {
     name: "Thống kê",
     to: "/analysis",
     dropdownList: [

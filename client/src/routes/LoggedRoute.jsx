@@ -3,6 +3,9 @@ import { BrowserRouter, Route, Switch as SwitchRoute } from 'react-router-dom'
 import FuseNavbar from '../components/FuseNavbar/FuseNavbar'
 import AnalysisPage from '../pages/AnalysisPage/AnalysisPage'
 import AuthorizationPage from '../pages/AuthorizationPage/AuthorizationPage'
+import CustomerModifyPage from '../pages/CustomerModifyPage/CustomerModifyPage'
+import CustomerNewpublishPage from '../pages/CustomerNewpublishPage/CustomerNewpublishPage'
+import CustomerPage from '../pages/CustomerPage/CustomerPage'
 import NotFound from '../pages/ErrorsPage/NotFound'
 import HomePage from '../pages/HomePage/HomePage'
 import LazOrderPage from '../pages/LazOrderPage/LazOrderPage'
@@ -33,6 +36,9 @@ const LoggedRoute = (props) => {
             <Route exact path="/order-local/newpublish" component={LocalNewpublishBillPage} />
             <Route exact path="/order-local/portal" component={LocalBillPage} />
             <Route exact path="/order-local/detail/:bill_id" component={LocalBillDetailsPage} />
+            <Route exact path="/customer/portal" component={CustomerPage}/>
+            <Route exact path="/customer/modify/:customer_id" component={CustomerModifyPage}/>
+            <Route exact path="/customer/newpublish" component={CustomerNewpublishPage}/>
             <Route exact path="/analysis/:type" component={AnalysisPage} />
             <Route exact path="/authorization" component={AuthorizationPage} />
             <Route exact path="/my-account" component={UserPage} />

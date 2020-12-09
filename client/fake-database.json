@@ -100,6 +100,78 @@
       "quanity_received": 9,
       "quantity_approved": 4,
       "price": 30000
+    },
+    {
+      "shop_sku": "979302503_VNAMZ-3092762004",
+      "seller_sku": "giayVansOldSkoolAnaheimFactoryCheckerboard-40do",
+      "name": "Giày Vans Old Skool Anaheim Factory Checkerboard",
+      "color": "Đỏ",
+      "size": "EU:40",
+      "quantity_received": 1,
+      "quantity_approved": 1,
+      "price": 1980000,
+      "receiving_slipId": 2,
+      "id": 3
+    },
+    {
+      "shop_sku": "998696449_VNAMZ-3216698055",
+      "seller_sku": "EU:40vang1606832981099",
+      "name": "Shoes Test",
+      "color": "vang",
+      "size": "EU:40",
+      "quantity_received": 1,
+      "quantity_approved": 1,
+      "price": 10000,
+      "receiving_slipId": 2,
+      "id": 4
+    },
+    {
+      "shop_sku": "998696449_VNAMZ-3216698056",
+      "seller_sku": "EU:39vang1606832981099",
+      "name": "Shoes Test",
+      "color": "vang",
+      "size": "EU:39",
+      "quantity_received": 1,
+      "quantity_approved": 1,
+      "price": 30000,
+      "receiving_slipId": 2,
+      "id": 5
+    },
+    {
+      "shop_sku": "979302503_VNAMZ-3092762004",
+      "seller_sku": "giayVansOldSkoolAnaheimFactoryCheckerboard-40do",
+      "name": "Giày Vans Old Skool Anaheim Factory Checkerboard",
+      "color": "Đỏ",
+      "size": "EU:40",
+      "quantity_received": 1,
+      "quantity_approved": 1,
+      "price": 1980000,
+      "receiving_slipId": 3,
+      "id": 6
+    },
+    {
+      "shop_sku": "998696449_VNAMZ-3216698055",
+      "seller_sku": "EU:40vang1606832981099",
+      "name": "Shoes Test",
+      "color": "vang",
+      "size": "EU:40",
+      "quantity_received": 1,
+      "quantity_approved": 1,
+      "price": 10000,
+      "receiving_slipId": 3,
+      "id": 7
+    },
+    {
+      "shop_sku": "998696449_VNAMZ-3216698055",
+      "seller_sku": "EU:40vang1606832981099",
+      "name": "Shoes Test",
+      "color": "vang",
+      "size": "EU:40",
+      "quantity_received": 1,
+      "quantity_approved": 1,
+      "price": 10000,
+      "receiving_slipId": 3,
+      "id": 8
     }
   ],
   "receiving_slip": [
@@ -113,6 +185,26 @@
       "telephone": "",
       "address": "",
       "status": "pending"
+    },
+    {
+      "description": "description",
+      "create_date": "2020-12-08",
+      "date_received": "2020-12-08",
+      "provider": "",
+      "telephone": "",
+      "address": "",
+      "status": "pending",
+      "id": 2
+    },
+    {
+      "description": "description",
+      "create_date": "2020-12-08",
+      "date_received": "2020-12-08",
+      "provider": "",
+      "telephone": "",
+      "address": "",
+      "status": "pending",
+      "id": 3
     }
   ],
   "bill": [
@@ -140,6 +232,20 @@
   "customer": [
     {
       "id": 1,
+      "name": "long",
+      "phone_number": "0858267296",
+      "address": "289/13, Ben Van Don",
+      "email": "shenlong20119@gmail.com"
+    },
+    {
+      "id": 2,
+      "name": "long",
+      "phone_number": "0858267296",
+      "address": "289/13, Ben Van Don",
+      "email": "shenlong20119@gmail.com"
+    },
+    {
+      "id": 3,
       "name": "long",
       "phone_number": "0858267296",
       "address": "289/13, Ben Van Don",
