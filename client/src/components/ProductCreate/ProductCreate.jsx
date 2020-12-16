@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
   imageInput: {
     width: `100%`,
     height: `100%`,
-    zIndex: 10,
+    zIndex: 2,
     opacity: 0,
     cursor: `pointer`
   },

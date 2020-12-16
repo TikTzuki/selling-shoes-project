@@ -1,4 +1,4 @@
-import { Avatar, Button, List, ListItem, Popover, Link } from '@material-ui/core'
+import { Avatar, Button, List, ListItem, Popover, Link, Paper, ButtonGroup } from '@material-ui/core'
 import { deepPurple } from '@material-ui/core/colors';
 import { withStyles } from '@material-ui/styles';
 import React from 'react'
@@ -68,7 +68,7 @@ const AvatarComp = (props) => {
   
   return (
     <div>
-       <Avatar onClick={handleClick} className={`${classes.purple} ${classes.small}`}>
+       <Avatar component={Paper} onClick={handleClick} className={`${classes.purple} ${classes.small}`}>
          {user.first_name.slice(0,1)}
         </Avatar>
        <Popover
@@ -85,30 +85,14 @@ const AvatarComp = (props) => {
 				}}
 				open={open}
 			>
-				<List>
-					<ListItem className={classes.listItem} style={{padding: 0}}>
-						<Link
-            className={classes.buttonAccount}
-            style={{padding: '.5rem 2rem', textTransform: 'none', textDecoration: 'none'}}
-            to={'/my-account'}
-            color="secondary"
-            fullWidth component={RouteLink}>
+				<ButtonGroup orientation="vertical" color="primary" variant="text">
+					<Button className={classes.listItem} component={RouteLink} to={'/my-account'}>
 							Tài khoản
-						</Link>
-					</ListItem>
-					<ListItem className={classes.listItem} style={{padding: 0}}>
-						<Link
-            className={classes.buttonLogout}
-            style={{padding: '.5rem 2rem', textTransform: 'none', textDecoration: 'none'}}
-            to='/'
-            color="secondary"
-            fullWidth
-            component={RouteLink}
-            onClick={handleLogout}>
+					</Button>
+					<Button className={classes.listItem} onClick={handleLogout} component={RouteLink} to='/'>
 							Đăng xuất
-						</Link>
-					</ListItem>
-				</List>
+					</Button>
+				</ButtonGroup>
 			</Popover>
     </div>
   )

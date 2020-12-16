@@ -238,18 +238,11 @@
       "email": "shenlong20119@gmail.com"
     },
     {
-      "id": 2,
-      "name": "long",
+      "name": "longg",
       "phone_number": "0858267296",
       "address": "289/13, Ben Van Don",
-      "email": "shenlong20119@gmail.com"
-    },
-    {
-      "id": 3,
-      "name": "long",
-      "phone_number": "0858267296",
-      "address": "289/13, Ben Van Don",
-      "email": "shenlong20119@gmail.com"
+      "email": "shenlong20119@gmail.com",
+      "id": 2
     }
   ],
   "purchase_order": [

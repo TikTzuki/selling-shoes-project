@@ -8,7 +8,7 @@ const ProductUpdatePage = (props) => {
     return (
         <div>
             Sửa sản phẩm: {props.match.params.product_id}
-            <ProductUpdate product_id={props.match.params.product_id} />
+            <ProductUpdate productId={props.match.params.product_id} />
         </div>
     )
 }

@@ -189,7 +189,7 @@ function TableProduct(props) {
 											<TableCell align="left">{row.quantity}</TableCell>
 											<TableCell align="left">{row.status}</TableCell>
 											<TableCell align="left">
-												<PopverButton itemTarget={{link: `/product/${row.productId}`}} />
+												<PopverButton itemTarget={{link: `/product/${row.productId}`}} sku={row} />
 											</TableCell>
 										</TableRow>
 									);

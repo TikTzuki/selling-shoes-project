@@ -2,6 +2,7 @@ import { Button, List, ListItem, ListItemText, makeStyles, Popover } from '@mate
 import React from 'react'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import { Link } from 'react-router-dom';
+import { axiosHeroku, axiosSpring } from '../../ultils/api';
 
 const useStyles = makeStyles((theme) => ({
 	typography: {
@@ -25,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
 const PopverButton = (props) => {
 	const itemTarget=props.itemTarget;
+	const sku = props.sku;
 	const classes = useStyles();
 	const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -35,6 +37,16 @@ const PopverButton = (props) => {
 	const handleClose = () => {
 		setAnchorEl(null);
 	};
+
+	const handleDeletedProduct = ()=>{
+		axiosSpring.post(`/products/product/remove?seller_sku_list=${encodeURI(`[\"${sku.sellerSku}\"]`)}`)
+		.then(res=>{
+			console.log(res);
+		})
+		.then(()=>{
+			window.location.reload()
+		})
+	}
 
 	const open = Boolean(anchorEl);
 	const id = open ? 'simple-popover' : undefined;
@@ -65,7 +77,7 @@ const PopverButton = (props) => {
 						</Button>
 					</ListItem>
 					<ListItem className={classes.listItem}>
-						<Button className={classes.buttonDelete} to='/' variant="text" component={Link}>
+						<Button className={classes.buttonDelete} variant="text" onClick={(e)=>handleDeletedProduct()}>
 							Xóa
 						</Button>
 					</ListItem>

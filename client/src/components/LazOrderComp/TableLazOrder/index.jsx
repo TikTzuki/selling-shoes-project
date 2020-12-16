@@ -159,7 +159,7 @@ const TableLazOrder = (props) => {
 	return (
 		<div className={classes.root}>
 			<Paper className={classes.paper}>
-				<EnhancedTableToolbar numSelected={selected.length} status={status} />
+				<EnhancedTableToolbar selected={selected} status={status} />
 				<TableContainer>
 					<Table
 						className={classes.table}

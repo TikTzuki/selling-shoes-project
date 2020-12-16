@@ -83,7 +83,14 @@ public class LazOrderController {
 		String responseJson = lazOrderService.setInvoiceNumber(accessToken, lazUrl, appkey, appSecret, orderItemId, invoiceNumber);
 		return new ResponseEntity<String>(responseJson, HttpStatus.OK);
 	}
-	
+	//SetStatusToPackedByMarketplace
+	@RequestMapping(method = RequestMethod.POST, value="")
+	public ResponseEntity<String> packedByMarketplace(
+		
+	){
+		String responseJson = "";
+		return new ResponseEntity<String>(responseJson, HttpStatus.OK);
+	}
 	//SetStatusToReadyToShip 
 	@RequestMapping(method = RequestMethod.POST, value="/rts")
 	public ResponseEntity<String> lazorderRts(

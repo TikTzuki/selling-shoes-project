@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const ReceivingSlipTable = () => {
+const OrderLocalTable = () => {
   const classes = useStyles();
   const receiving = useSelector(state => state.receiving)
   useEffect(() => {
@@ -60,7 +60,7 @@ const ReceivingSlipTable = () => {
                 render={({ field }) => (
                   <TextField
                     type="date"
-                    label="Ngày nhập"
+                    label="Ngày tạo"
                     InputLabelProps={{
                       shrink: true,
                     }}
@@ -75,7 +75,7 @@ const ReceivingSlipTable = () => {
                 name={'provider'}
                 render={({ field }) => (
                   <FormControl className={classes.selectProvider}>
-                    <InputLabel id="select-category">Nhà cung cấp</InputLabel>
+                    <InputLabel id="select-category">Khách hàng</InputLabel>
                     <Select
                       native
                       {...field}
@@ -126,6 +126,7 @@ const ReceivingSlipTable = () => {
     </Formik>
   )
 }
+
 const useStyleDetail = makeStyles((theme) => ({
   container: {
     maxHeight: 300
@@ -161,9 +162,9 @@ const TableDetail = (props) => {
     { label: "Tên sản phẩm" },
     { label: "Màu" },
     { label: "Size" },
-    { label: "Giá nhập" },
-    { label: "Đến" },
-    { label: "Nhập" },
+    { label: "Giá gốc" },
+    { label: "Giá bán" },
+    { label: "Số lượng" },
     { label: "Đơn gia" },
     { label: "..." }
   ];
@@ -218,4 +219,4 @@ const TableDetail = (props) => {
     </TableContainer>
   )
 }
-export default ReceivingSlipTable
+export default OrderLocalTable

@@ -90,10 +90,10 @@ public class ProductController {
 			//TODO: handle exception
 		}
 		
-		System.out.println("--------------------");
-		System.out.println(result);
-		System.out.println("--------------------");
-		String responseJson = productService.createProduct(accessToken, lazUrl, appkey, appSecret, result);
+		System.out.println("----------Controller 93----------");
+		System.out.println(payload);
+		System.out.println("----------Controller 93-----------");
+		String responseJson = productService.createProduct(accessToken, lazUrl, appkey, appSecret, payload);
 		return new ResponseEntity<String>(responseJson,HttpStatus.OK);
 		//return new ResponseEntity<String>(productForm.toString(), HttpStatus.OK);
 	}

@@ -63,22 +63,22 @@ public class ProductService {
 			String payload) {
 		LazopClient client = new LazopClient(LazUrl, appkey, appSecret);
 		LazopRequest request = new LazopRequest();
+		LazopResponse response = new LazopResponse();
 		request.setApiName("/product/create");
 		//request.setHttpMethod("POST");
-		request.addApiParameter("payload", payload);
-		LazopResponse response = new LazopResponse();
-
-		System.out.println("---------res--------------");
-		String result = "";
 		try {
-			result = java.net.URLDecoder.decode(payload, StandardCharsets.UTF_8.name());
-			response = client.execute(request, accessToken);	
+		String result = java.net.URLDecoder.decode(payload, StandardCharsets.UTF_8.name());
+		request.addApiParameter("payload", result);
+		System.out.println("---------res Service--------------");
+			
+			response = client.execute(request, accessToken);
+			System.out.println(result);
 			System.out.println(response.getBody());
 			Thread.sleep(10);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("---------res--------------");
+		System.out.println("---------res Service--------------");
 
 		return response.getBody();
 	}
@@ -150,7 +150,17 @@ public class ProductService {
 		LazopClient client = new LazopClient(lazUrl, appkey, appSecret);
 		LazopRequest request = new LazopRequest();
 		request.setApiName("/product/remove");
-		request.addApiParameter("seller_sku_list", seller_sku_list);
+		String sellerSkiListDecode = "";
+
+		try{
+			sellerSkiListDecode = java.net.URLDecoder.decode(seller_sku_list, StandardCharsets.UTF_8.name());
+			System.out.println(sellerSkiListDecode);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		request.addApiParameter("seller_sku_list", sellerSkiListDecode);
+
 		LazopResponse response = new LazopResponse();
 		try {
 			response = client.execute(request, accessToken);
@@ -161,6 +171,7 @@ public class ProductService {
 		}
 		return response.getBody();
 	}
+
 	//update Product
 	public String updateProduct(String accessToken, String lazUrl, String appkey, String appSecret,			
 			String payload) {		
